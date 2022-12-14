@@ -1,0 +1,25 @@
+.container {
+    width:35%;
+    height:calc(100vh - 24px);
+    background-color: var(--chakra-colors-blue-800);
+}
+
+.navGroup {
+
+}
+
+.navList {
+    background-color: var(--chakra-colors-blue-700);
+}
+
+.navItem {
+    color: var(--chakra-colors-white);
+}
+
+.openMenu {
+    background: red;
+}
+
+.closedMenu {
+    background: green;
+}
