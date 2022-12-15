@@ -1,40 +1,75 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, Icon, IconButton, List, ListItem, Text } from "@chakra-ui/react";
-import { ChevronDownIcon, InfoIcon } from '@chakra-ui/icons';
+import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from './Navigation.module.scss';
-import { Dispatch, SetStateAction } from "react";
+
 
 interface NavigationProps {
-    isMenuOpen: boolean,
-    setMenuOpen: any
+    isMenuOpen?: boolean,
+    setMenuOpen?: any
+}
+import { MENU_ITEMS } from "./MenuItems";
+
+interface NavItem {
+    title: string,
+    icon?: any,
+    children: any[]
 }
 
 export default function Navigation(props: NavigationProps) {
+    const router = useRouter();
     return (
-        <Box className={`${styles.container} ${props.isMenuOpen ? styles.openMenu : styles.closedMenu}`}>
-            <Box className={styles.navGroup}>
-                <Box className={styles.navItem}>
-                <Accordion allowToggle reduceMotion={true}>
-                    <AccordionItem>
-                        <Flex flexDir={`row`} className={styles.navTitle} justifyContent={`space-between`} alignItems={`center`}>
-                            <AccordionButton p={0}>
-                                <Flex flexDir={`row`} alignItems={`center`} justifyContent={`space-between`} w={`100%`}>
-                                    <Icon ms={3} fontSize="md" children={<InfoIcon />}></Icon>
-                                    <Text as="h3" flexGrow={1} textAlign={`left`} ps={2} fontSize={`sm`}>Navigation Item Title</Text>
-                                    <AccordionIcon m={2}/>
-                                </Flex>
-                            </AccordionButton>
-                        </Flex>
-                        <AccordionPanel p={2} className={styles.navList}>
-                            <List>
-                                <ListItem>
-                                    <Text as="span" fontSize="xs">Child Item 1</Text>
-                                </ListItem>
-                            </List>
-                        </AccordionPanel>
-                    </AccordionItem>
-                </Accordion>
+        <>
+            {props.isMenuOpen}
+            <Box className={`${styles.container} ${props.isMenuOpen ? styles.openMenu: styles.closedMenu }`}>
+                <Box className={styles.navGroup}>
+                    <Box>
+                    <Accordion allowToggle reduceMotion={true}>                    
+                        {
+                            MENU_ITEMS.map((navItem, navIdx) => (
+                                <AccordionItem className={`${styles.navItem}`} key={`navItem-${navIdx}`} borderTopWidth={0} borderBottomWidth={1}>
+                                    {
+                                        ({ isExpanded }) => (
+                                            <>
+                                                <Link href={`${navItem.path ?? `#`}`}>
+                                                    <Flex flexDir={`row`} className={`${styles.navTitle} ${isExpanded ? styles.expandedNavItem : ''} ${ router.pathname === navItem.path ? styles.activeNav : '' }`} p={3}  minHeight={`48px`}>
+
+                                                        <Flex flexDir={`row`} alignItems={`center`} w={`100%`}>
+                                                            {navItem.icon}
+                                                            <Box ps={4} className={styles.openOnly}>
+                                                                <Text as="span">{navItem.title}</Text>
+                                                            </Box>
+                                                            {navItem.children.length ? <AccordionButton className={styles.openOnly} _hover={{background: `transparent`}} flexGrow={1} justifyContent={`flex-end`} w={`auto`} p={0}><AccordionIcon /></AccordionButton> : null}
+                                                        </Flex>
+
+                                                    </Flex>
+                                                </Link>
+                                                {
+                                                    navItem.children.length ?
+                                                    <AccordionPanel p={0} className={`${styles.navList} ${styles.openOnly}`}>
+                                                        <List className={styles.childNavList}>
+                                                            {navItem.children.map((navChild, navChildIdx) => {
+                                                                return (
+                                                                    <ListItem key={`navChildId-${navChildIdx}`} ps={12} pb={2}>
+                                                                        <Link href={`${navChild.path}`} className={router.pathname === navChild.path ? 'active' : ''}>
+                                                                            <Text as="span" fontSize={`xs`}>{navChild.title}</Text>
+                                                                        </Link>
+                                                                    </ListItem>
+                                                                );
+                                                            })}
+                                                        </List>
+                                                    </AccordionPanel> : null
+                                                }
+                                            </>
+                                        )
+                                    }
+                                </AccordionItem>
+                            ))
+                        }
+                    </Accordion>
+                    </Box>
                 </Box>
             </Box>
-        </Box>
+        </>
     )
 }

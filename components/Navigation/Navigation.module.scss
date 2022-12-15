@@ -1,25 +1,66 @@
 .container {
-    width:35%;
+    width:20%;
     height:calc(100vh - 24px);
-    background-color: var(--chakra-colors-blue-800);
-}
+    background-color: var(--chakra-colors-white);
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    top: 41px;
+    z-index: 10;
 
-.navGroup {
-
-}
-
-.navList {
-    background-color: var(--chakra-colors-blue-700);
-}
-
-.navItem {
-    color: var(--chakra-colors-white);
+    border-right: 1px solid var(--chakra-colors-gray-200);
 }
 
 .openMenu {
-    background: red;
+    navItem {
+        .openOnly {
+            display:initial;
+        }
+    }
 }
 
 .closedMenu {
-    background: green;
+    width:auto;
+    .navItem {
+        .openOnly {
+            display:none;
+        }
+    }
+}
+
+.navTitle {
+    background: var(--chakra-colors-white);
+
+    &.activeNav {
+        background-color: var(--chakra-colors-gray-100);
+    }
+}
+
+// .expandedNavItem {
+//     background-color: var(--chakra-colors-gray-100);
+// }
+
+.overlay {
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: (0,0,0,0.4);
+    z-index: 4;
+}
+
+.navList {
+    background-color: var(--chakra-colors-white);
+}
+
+.childNavList {
+    // background-color: var(--chakra-colors-gray-100);
+}
+
+.navItem {
+    color: var(--chakra-colors-black);
+    &:hover {
+        background-color: var(--chakra-colors-gray-100); 
+    }
 }
