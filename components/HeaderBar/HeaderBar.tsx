@@ -2,14 +2,14 @@ import { Box, Flex, Text, Icon, IconButton } from "@chakra-ui/react";
 import { CgMenu } from "react-icons/cg";
 import styles from './HeaderBar.module.scss';
 import { FaUserCircle } from 'react-icons/fa';
-import { MouseEventHandler, useState } from "react";
+import { MouseEvent, MouseEventHandler, useState } from "react";
 
 export default function HeaderBar(props: any) {
 
     const [isNavOpen, setNavOpen] = useState(false); 
 
-    const handleIconClick = (event: MouseEvent) => {
-        return props.onNavToggle(event)
+    const handleIconClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        return props.onNavToggle(event);
     }
     
     return (
