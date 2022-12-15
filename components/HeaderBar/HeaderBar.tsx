@@ -8,7 +8,7 @@ export default function HeaderBar(props: any) {
 
     const [isNavOpen, setNavOpen] = useState(false); 
 
-    const handleIconClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleIconClick = (event: any) => {
         return props.onNavToggle(event);
     }
     
