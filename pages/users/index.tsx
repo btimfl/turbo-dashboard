@@ -155,14 +155,14 @@ export default function UsersPage() {
             <Modal closeOnEsc={true} closeOnOverlayClick={true} variant={`flyout`} isOpen={isOpen} onClose={onClose} size={`full`} motionPreset={`none`}>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader fontSize={`md`}>Edit User</ModalHeader>
+                <ModalHeader p={2} pl={4} borderBottom={`1px solid var(--chakra-colors-gray-200)`} fontSize={`md`}>Edit User</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <UserForm {...editingUser}/>
                 </ModalBody>
 
-                <ModalFooter justifyContent={`flex-start`}>
-                    <Button mr={3} onClick={onClose} size={`sm`}>Close</Button>
+                <ModalFooter justifyContent={`flex-start`} p={2} pl={4} borderTop={`1px solid var(--chakra-colors-gray-200)`} fontSize={`md`}>
+                    <Button mr={3} onClick={onClose} size={`xs`}>Close</Button>
                 </ModalFooter>
                 </ModalContent>
             </Modal>

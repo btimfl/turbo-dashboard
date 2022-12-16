@@ -73,7 +73,7 @@ export default function UserForm(props: UserProp) {
                             <FormErrorMessage>{formik.errors.role}</FormErrorMessage>
                         </FormControl>
                     </Flex>
-                    <Button type='submit' colorScheme={`teal`}  onClick={handleUserSubmit}>Submit</Button>
+                    <Button type='submit' colorScheme={`teal`} size={`sm`} onClick={handleUserSubmit}>Submit</Button>
                 </form>
             </Box>
         </>
