@@ -6,7 +6,7 @@ import styles from './Navigation.module.scss';
 
 interface NavigationProps {
     isMenuOpen?: boolean,
-    setMenuOpen?: any
+    onNavSelect: Function
 }
 import { MENU_ITEMS } from "./MenuItems";
 
@@ -18,6 +18,7 @@ interface NavItem {
 
 export default function Navigation(props: NavigationProps) {
     const router = useRouter();
+    
     return (
         <>
             {props.isMenuOpen}
@@ -32,12 +33,12 @@ export default function Navigation(props: NavigationProps) {
                                         ({ isExpanded }) => (
                                             <>
                                                 <Link href={`${navItem.path ?? `#`}`}>
-                                                    <Flex flexDir={`row`} className={`${styles.navTitle} ${isExpanded ? styles.expandedNavItem : ''} ${ router.pathname === navItem.path ? styles.activeNav : '' }`} p={3}  minHeight={`48px`}>
+                                                    <Flex flexDir={`row`} className={`${styles.navTitle} ${isExpanded ? styles.expandedNavItem : ''} ${ router.pathname === navItem.path || navItem.children.filter(el => el.path.includes(router.pathname)).length ? styles.activeNav : '' }`} p={3}  minHeight={`48px`}>
 
                                                         <Flex flexDir={`row`} alignItems={`center`} w={`100%`}>
                                                             {navItem.icon}
                                                             <Box ps={4} className={styles.openOnly}>
-                                                                <Text as="span">{navItem.title}</Text>
+                                                                <Text as="span" >{navItem.title}</Text>
                                                             </Box>
                                                             {navItem.children.length ? <AccordionButton className={styles.openOnly} _hover={{background: `transparent`}} flexGrow={1} justifyContent={`flex-end`} w={`auto`} p={0}><AccordionIcon /></AccordionButton> : null}
                                                         </Flex>

@@ -8,6 +8,7 @@ import { useState } from 'react'
 import TurboLayout from '../layouts/TurboLayout'
 import { modalTheme } from '../components/theme/flyoutModal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import "nprogress/nprogress.css";
 
 const theme = extendTheme({
   components: {

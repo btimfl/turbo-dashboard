@@ -19,8 +19,17 @@ export const MENU_ITEMS = [
     },
     {
         icon: <Icon as={FaDollarSign}></Icon>,
-        title: 'Payment Setup',
-        children: [],
+        title: 'Payment Gateways',
+        children: [
+            {
+                title: 'Payment Gateways',
+                path: '/payments'
+            },
+            {
+                title: 'Add New Payment Gateway',
+                path: '/add-payment'
+            }
+        ],
         path: '/payments'
     },
     {
