@@ -13,11 +13,13 @@ export default function TurboLayout({ children }: {
 
   useEffect(() => {
     const handleRouteDone = (url, { shallow }) => {
-      setNavOpen(false);
       return NProgress.done();
     }
 
-    const handleRouteStart = () => NProgress.start();
+    const handleRouteStart = () => {
+      setNavOpen(false);
+      NProgress.start();
+    }
 
     router.events.on('routeChangeStart', handleRouteStart)
     router.events.on('routeChangeComplete', handleRouteDone)
