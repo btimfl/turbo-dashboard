@@ -4,7 +4,7 @@ import { useState } from 'react';
 import UserForm from '../../components/HeaderBar/UserForm/UserForm';
 import styles from './users.module.scss';
 
-interface User {
+export interface User {
     name: string,
     email: string,
     phone: string,
@@ -31,6 +31,8 @@ const defaultData: User[] = [
 ];
 
 export default function UsersPage() {
+
+    const [editingUser, setEditingUser] = useState({});
 
     const columns = [
         columnHelper.accessor('name', {
@@ -71,6 +73,7 @@ export default function UsersPage() {
 
 
     const handleEditUser = ({...props}) => {  
+        setEditingUser(props?.row?.original);
         console.log("Editing user", props?.row?.original);
         return onOpen()
     }
@@ -136,7 +139,7 @@ export default function UsersPage() {
                 <ModalHeader fontSize={`md`}>Edit User</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <UserForm />
+                    <UserForm editingUser={editingUser}/>
                 </ModalBody>
 
                 <ModalFooter justifyContent={`flex-start`}>

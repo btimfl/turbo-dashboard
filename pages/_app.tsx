@@ -7,6 +7,7 @@ import HeaderBar from '../components/HeaderBar/HeaderBar'
 import { useState } from 'react'
 import TurboLayout from '../layouts/TurboLayout'
 import { modalTheme } from '../components/theme/flyoutModal'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const theme = extendTheme({
   components: {
@@ -14,14 +15,16 @@ const theme = extendTheme({
   }
 })
 
+const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
   
   return (
-    <ChakraProvider theme = {theme}>
-      <TurboLayout>
-        <Component {...pageProps} />
-      </TurboLayout>
-      
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme = {theme}>
+        <TurboLayout>
+          <Component {...pageProps} />
+        </TurboLayout>
+      </ChakraProvider>
+    </QueryClientProvider>
   )
 }

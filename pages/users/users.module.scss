@@ -1,0 +1,40 @@
+.container {
+    //container style comes here.
+}
+
+.columnHeader {
+    text-decoration: none;
+}
+
+.table {
+    width: 100%;
+    border: 1px solid var(--chakra-colors-gray-200);
+
+    thead, tfoot, tbody {
+        th, td {
+            padding: 0;
+        }
+    }
+
+    tbody {
+
+        td {
+            border-right: 1px solid var(--chakra-colors-gray-200);
+        }
+    }
+    th {
+        border-bottom: 1px solid var(--chakra-colors-gray-200);
+        border-right: 1px solid var(--chakra-colors-gray-200);
+    }
+    
+
+    tfoot {
+        th {
+            padding: 0;
+        }
+    }
+}
+
+.cellContainer {
+    // cell container classes
+}
