@@ -1,8 +1,10 @@
-import { Box, Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Spinner, Center, useOutsideClick } from '@chakra-ui/react';
 import { useReactTable, createColumnHelper, getCoreRowModel, flexRender, Table } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { getUserList } from '../../apis/get';
 import UserForm from '../../components/HeaderBar/UserForm/UserForm';
 import styles from './users.module.scss';
+import { useQuery } from '@tanstack/react-query';
 
 export interface User {
     name: string,
@@ -13,11 +15,7 @@ export interface User {
     action?: any
 }
 
-
-
 const columnHelper = createColumnHelper<User>();
-
-
 
 const defaultData: User[] = [
     {
@@ -32,7 +30,22 @@ const defaultData: User[] = [
 
 export default function UsersPage() {
 
-    const [editingUser, setEditingUser] = useState({});
+    const [editingUser, setEditingUser] = useState<User>({
+        name: '',
+        email: '',
+        phone: '',
+        role: '',
+        status: '',
+        action: ''
+    });
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const { isLoading, isError, data } = useQuery({
+        queryKey: ['getUserList'],
+        queryFn: getUserList
+    });
+
+    const [rowData, setData] = useState(() => [...defaultData])
 
     const columns = [
         columnHelper.accessor('name', {
@@ -57,24 +70,30 @@ export default function UsersPage() {
         }),
         columnHelper.accessor('action', {
             header: () => <span className={styles.columnHeader}>Actions</span>,
-            cell: props => { return (<Button size={`xs`} onClick={() => handleEditUser(props)}>Edit</Button>)}
+            cell: props => { return (<Button colorScheme={`teal`} size={`xs`} onClick={() => handleEditUser(props)}>Edit</Button>)}
         }),
     ]
-
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
-    const [data, setData] = useState(() => [...defaultData])
-
+    
     const table = useReactTable({
-        data,
+        data: rowData,
         columns,
         getCoreRowModel: getCoreRowModel()
     });
 
+    useEffect(() => {
+        if(data) {
+            setData(data.users);
+        }
+    }, [data])
+
+    if(isLoading) return <Center h={`100vh`}><Spinner /></Center>
+
+    if(isError) return <Text as="span">Error!</Text>
 
     const handleEditUser = ({...props}) => {  
         setEditingUser(props?.row?.original);
         console.log("Editing user", props?.row?.original);
+        setEditingUser(props?.row?.original);
         return onOpen()
     }
 
@@ -133,13 +152,13 @@ export default function UsersPage() {
                 </tfoot>
             </table>
 
-            <Modal variant={`flyout`} isOpen={isOpen} onClose={onClose} size={`full`} motionPreset={`none`}>
+            <Modal closeOnEsc={true} closeOnOverlayClick={true} variant={`flyout`} isOpen={isOpen} onClose={onClose} size={`full`} motionPreset={`none`}>
                 <ModalOverlay />
                 <ModalContent>
                 <ModalHeader fontSize={`md`}>Edit User</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <UserForm editingUser={editingUser}/>
+                    <UserForm {...editingUser}/>
                 </ModalBody>
 
                 <ModalFooter justifyContent={`flex-start`}>
