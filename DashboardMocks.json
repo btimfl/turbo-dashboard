@@ -1,0 +1,123 @@
+{
+  "uuid": "14a1af0a-b6e2-4212-87cd-c8c226d077a2",
+  "lastMigration": 24,
+  "name": "DashboardMocks",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 4001,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "7ffde3c3-61c7-43f8-ac4d-f8de103f1c5c",
+      "documentation": "Route to get all Users",
+      "method": "get",
+      "endpoint": "dashboard/users/get",
+      "responses": [
+        {
+          "uuid": "38bb9422-291a-4aee-ae03-5f4ccdc46d04",
+          "body": "{\n  \"users\": [\n    {\n      \"name\": \"Raghav Kanwal\",\n        \"email\": \"raghav.kanwal@unicommerce.com\",\n        \"phone\": \"+91 9654723413\",\n        \"role\": \"Tech Lead\",\n        \"status\": \"Active\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "mode",
+              "value": "no-cors"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "268eaa80-c69c-4d1f-99dd-fae223a1027a",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "dashboard/users/get",
+      "responses": [
+        {
+          "uuid": "4a0dd146-004c-4ea9-8851-ff84d88c7aab",
+          "body": "{\n  users: [\n    {\n      name: 'Raghav Kanwal',\n        email: 'raghav.kanwal@unicommerce.com',\n        phone: '+91 9654723413',\n        role: 'Tech Lead',\n        status: 'Active'\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "192"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
