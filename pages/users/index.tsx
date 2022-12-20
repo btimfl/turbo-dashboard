@@ -42,7 +42,7 @@ export default function UsersPage() {
 
     const { isLoading, isError, data } = useQuery({
         queryKey: ['getUserList'],
-        queryFn: getUserList
+        queryFn: () => getUserList().then(res => res.json())
     });
 
     const [rowData, setData] = useState(() => [...defaultData])
@@ -70,10 +70,10 @@ export default function UsersPage() {
         }),
         columnHelper.accessor('action', {
             header: () => <span className={styles.columnHeader}>Actions</span>,
-            cell: props => { return (<Button colorScheme={`teal`} size={`xs`} onClick={() => handleEditUser(props)}>Edit</Button>)}
+            cell: props => { return (<Button colorScheme={`teal`} size={`xs`} onClick={() => handleEditUser(props)}>Edit</Button>) }
         }),
     ]
-    
+
     const table = useReactTable({
         data: rowData,
         columns,
@@ -81,16 +81,16 @@ export default function UsersPage() {
     });
 
     useEffect(() => {
-        if(data) {
+        if (data) {
             setData(data.users);
         }
     }, [data])
 
-    if(isLoading) return <Center h={`100vh`}><Spinner /></Center>
+    if (isLoading) return <Center h={`100vh`}><Spinner /></Center>
 
-    if(isError) return <Text as="span">Error!</Text>
+    if (isError) return <Text as="span">Error!</Text>
 
-    const handleEditUser = ({...props}) => {  
+    const handleEditUser = ({ ...props }) => {
         setEditingUser(props?.row?.original);
         console.log("Editing user", props?.row?.original);
         setEditingUser(props?.row?.original);
@@ -107,14 +107,14 @@ export default function UsersPage() {
                             {headerGroup.headers.map(header => (
                                 <th key={header.id} >
                                     <Box p={2} textAlign={`left`}>
-                                    {
-                                        header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )
-                                    }
+                                        {
+                                            header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )
+                                        }
                                     </Box>
                                 </th>
                             ))}
@@ -155,17 +155,17 @@ export default function UsersPage() {
             <Modal closeOnEsc={true} closeOnOverlayClick={true} variant={`flyout`} isOpen={isOpen} onClose={onClose} size={`full`} motionPreset={`none`}>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader p={2} pl={4} borderBottom={`1px solid var(--chakra-colors-gray-200)`} fontSize={`md`}>Edit User</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <UserForm {...editingUser}/>
-                </ModalBody>
+                    <ModalHeader p={2} pl={4} borderBottom={`1px solid var(--chakra-colors-gray-200)`} fontSize={`md`}>Edit User</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <UserForm {...editingUser} />
+                    </ModalBody>
 
-                <ModalFooter justifyContent={`flex-start`} p={2} pl={4} borderTop={`1px solid var(--chakra-colors-gray-200)`} fontSize={`md`}>
-                    <Button mr={3} onClick={onClose} size={`xs`}>Close</Button>
-                </ModalFooter>
+                    <ModalFooter justifyContent={`flex-start`} p={2} pl={4} borderTop={`1px solid var(--chakra-colors-gray-200)`} fontSize={`md`}>
+                        <Button mr={3} onClick={onClose} size={`xs`}>Close</Button>
+                    </ModalFooter>
                 </ModalContent>
             </Modal>
-            </>
+        </>
     )
 }
