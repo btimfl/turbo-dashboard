@@ -72,11 +72,11 @@ export default function UsersPage() {
     }
 
     const [editingUser, setEditingUser] = useState<User>({
-        name: '',
+        fullName: '',
         email: '',
-        phone: '',
-        role: '',
-        status: '',
+        phoneNumber: '',
+        userRole: '',
+        userStatus: '',
         action: ''
     });
     const { isOpen, onOpen, onClose } = useDisclosure();
