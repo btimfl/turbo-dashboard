@@ -1,9 +1,10 @@
-const baseUrl = 'http://localhost:4000';
+const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
 
 export async function getUserList() {
-    const headers = new Headers();
-    const res = await fetch(`${baseUrl}/dashboard/users/get`, {
-        headers
+    const res = await fetch(`${baseUrl}/v1/getMerchantDetailsByName/Neemans`, {
+        headers: {
+            'Cookie': 'JSESSIONID=C1267510EE5F3AC10B6D00A9EADF7185',
+        }
     });
     return res.json();
 }

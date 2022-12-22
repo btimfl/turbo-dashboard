@@ -5,8 +5,7 @@ import styles from './Navigation.module.scss';
 
 
 interface NavigationProps {
-    isMenuOpen?: boolean,
-    onNavSelect: Function
+    isMenuOpen?: boolean
 }
 import { MENU_ITEMS } from "./MenuItems";
 

@@ -82,7 +82,7 @@ export default function UsersPage() {
 
     useEffect(() => {
         if(data) {
-            setData(data.users);
+            setData(data.usersList);
         }
     }, [data])
 
