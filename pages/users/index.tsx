@@ -1,6 +1,6 @@
 import { Box, Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Spinner, Center, useOutsideClick } from '@chakra-ui/react';
 import { useReactTable, createColumnHelper, getCoreRowModel, flexRender, Table } from '@tanstack/react-table';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { getUserList } from '../../apis/get';
 import UserForm from '../../components/HeaderBar/UserForm/UserForm';
 import styles from './users.module.scss';
@@ -17,19 +17,7 @@ export interface User {
 
 const columnHelper = createColumnHelper<User>();
 
-const defaultData: User[] = [
-    {
-        name: 'Raghav Kanwal',
-        email: 'raghav.kanwal@unicommerce.com',
-        phone: '+91 9654723413',
-        role: 'Tech Lead',
-        status: 'Active',
-        action: ''
-    }
-];
-
 export default function UsersPage() {
-
     const [editingUser, setEditingUser] = useState<User>({
         name: '',
         email: '',
@@ -44,8 +32,6 @@ export default function UsersPage() {
         queryKey: ['getUserList'],
         queryFn: () => getUserList().then(res => res.json())
     });
-
-    const [rowData, setData] = useState(() => [...defaultData])
 
     const columns = [
         columnHelper.accessor('name', {
@@ -75,16 +61,18 @@ export default function UsersPage() {
     ]
 
     const table = useReactTable({
-        data: rowData,
+        data: data ? data.usersList.map(row => {
+            return {
+                ...row,
+                name: row['fullName'],
+                phone: row['phoneNumber'],
+                role: row['userRole'][0],
+                status: row['userStatus'],
+            }
+        }) : [],
         columns,
         getCoreRowModel: getCoreRowModel()
     });
-
-    useEffect(() => {
-        if (data) {
-            setData(data.users);
-        }
-    }, [data])
 
     if (isLoading) return <Center h={`100vh`}><Spinner /></Center>
 
@@ -102,7 +90,7 @@ export default function UsersPage() {
         <>
             <table className={styles.table}>
                 <thead>
-                    {table.getHeaderGroups().map(headerGroup => (
+                    {table?.getHeaderGroups().map(headerGroup => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
                                 <th key={header.id} >
