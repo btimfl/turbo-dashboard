@@ -12,10 +12,12 @@ export interface User {
     phone: string,
     role: string,
     status: string
-    action?: any
+}
+interface Columns extends User {
+    action: void,
 }
 
-const columnHelper = createColumnHelper<User>();
+const columnHelper = createColumnHelper<Columns>();
 
 export default function UsersPage() {
     const [editingUser, setEditingUser] = useState<User>({
@@ -24,7 +26,6 @@ export default function UsersPage() {
         phone: '',
         role: '',
         status: '',
-        action: ''
     });
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -36,35 +37,35 @@ export default function UsersPage() {
     const columns = [
         columnHelper.accessor('name', {
             header: () => <span className={styles.columnHeader}>Name</span>,
-            cell: info => info.getValue()
         }),
         columnHelper.accessor('email', {
             header: () => <span className={styles.columnHeader}>Email</span>,
-            cell: info => info.getValue()
         }),
         columnHelper.accessor('phone', {
             header: () => <span className={styles.columnHeader}>Phone</span>,
-            cell: info => info.getValue()
         }),
         columnHelper.accessor('role', {
             header: () => <span className={styles.columnHeader}>Role</span>,
-            cell: info => info.getValue()
         }),
         columnHelper.accessor('status', {
             header: () => <span className={styles.columnHeader}>Status</span>,
-            cell: info => info.getValue()
         }),
         columnHelper.accessor('action', {
             header: () => <span className={styles.columnHeader}>Actions</span>,
-            cell: props => { return (<Button colorScheme={`teal`} size={`xs`} onClick={() => handleEditUser(props)}>Edit</Button>) }
+            cell: info => <Button colorScheme={`teal`} size={`xs`} onClick={() => handleEditUser(info.row.original)}>Edit</Button>
         }),
     ]
+
+    const handleEditUser = (user: User) => {
+        // setEditingUser(user);
+        onOpen();
+    }
 
     const table = useReactTable({
         data: data ? data.usersList.map(row => {
             return {
-                ...row,
                 name: row['fullName'],
+                email: row['email'],
                 phone: row['phoneNumber'],
                 role: row['userRole'][0],
                 status: row['userStatus'],
@@ -77,13 +78,6 @@ export default function UsersPage() {
     if (isLoading) return <Center h={`100vh`}><Spinner /></Center>
 
     if (isError) return <Text as="span">Error!</Text>
-
-    const handleEditUser = ({ ...props }) => {
-        setEditingUser(props?.row?.original);
-        console.log("Editing user", props?.row?.original);
-        setEditingUser(props?.row?.original);
-        return onOpen()
-    }
 
 
     return (

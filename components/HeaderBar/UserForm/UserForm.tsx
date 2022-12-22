@@ -9,7 +9,6 @@ interface UserProp {
     phone: string,
     role: string,
     status: string,
-    action?: any
 }
 
 export default function UserForm(props: UserProp) {
@@ -30,7 +29,6 @@ export default function UserForm(props: UserProp) {
             status: Yup.mixed()
         }),
         onSubmit: (values) => {
-            debugger;
             console.log(values);
         }
     });
@@ -66,7 +64,7 @@ export default function UserForm(props: UserProp) {
                         </FormControl>
                         <FormControl mb={4} isInvalid={formik.touched.role && formik.errors.role ? true : false}>
                             <FormLabel ps={4} htmlFor="email">Role</FormLabel>
-                            <Select defaultValue={props.role} placeholder="Role" aria-placeholder="Role" {...formik.getFieldProps('role')}>
+                            <Select placeholder="Role" aria-placeholder="Role" {...formik.getFieldProps('role')}>
                                 <option value='admin'>UI Engineer</option>
                                 <option value='viewer'>Lead Engineer</option>
                             </Select>
