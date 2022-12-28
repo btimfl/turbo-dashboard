@@ -9,7 +9,8 @@ export default function HomeModule() {
         <meta name="description" content="Turbo Merchant Experience" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
     </div>
   )
 }
+
+HomeModule.requireAuth = true;
