@@ -8,79 +8,35 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  InputRightElement,
   Select,
 } from "@chakra-ui/react";
-import { useFormik } from "formik";
-import { useEffect } from "react";
-import * as Yup from "yup";
+import { FormikProps } from "formik";
+import { useState } from "react";
 
-interface UserProp {
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  userRole: string;
-  userStatus: string;
-  action?: any;
+interface Props {
+  formik: FormikProps<{
+    name: string,
+    email: string,
+    mobile: string,
+    role: string,
+    username: string,
+    password: string,
+  }>,
+  isEdit: boolean,
 }
 
-export default function UserForm(props: UserProp) {
-  const formik = useFormik({
-    initialValues: {
-      fullName: props.fullName,
-      email: props.email,
-      phoneNumber: props.phoneNumber,
-      userStatus: props.userStatus,
-      userRole: props.userRole,
-    },
-    validationSchema: Yup.object({
-      fullName: Yup.string().required("Required"),
-      phoneNumber: Yup.string()
-        .length(10, "Invalid Mobile Number")
-        .required("Required"),
-      email: Yup.string().email("Invalid Email Format"),
-      userRole: Yup.string().required("Required"),
-      userStatus: Yup.mixed(),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
-
-  const handleUserSubmit = () => {
-    console.log("submitting");
-  };
+export default function UserForm({ formik, isEdit }: Props) {
+  const [show, setShow] = useState<boolean>(false);
 
   return (
     <>
       <Box>
         <form onSubmit={formik.handleSubmit}>
-          <Flex gap={4}>
+          <Box w={`min(100%, 750px)`}>
             <FormControl
               mb={4}
-              isInvalid={
-                formik.touched.phoneNumber && formik.errors.phoneNumber
-                  ? true
-                  : false
-              }
-            >
-              <FormLabel ps={4} htmlFor="phone">
-                Mobile Number
-              </FormLabel>
-              <InputGroup>
-                <InputLeftAddon>+91</InputLeftAddon>
-                <Input
-                  type="number"
-                  placeholder={`Mobile`}
-                  {...formik.getFieldProps("phone")}
-                ></Input>
-              </InputGroup>
-              <FormErrorMessage>{formik.errors.phoneNumber}</FormErrorMessage>
-            </FormControl>
-            <FormControl
-              mb={4}
-              isInvalid={
-                formik.touched.fullName && formik.errors.fullName ? true : false
-              }
+              isInvalid={formik.touched.name && !!formik.errors.name}
             >
               <FormLabel ps={4} htmlFor="name">
                 Name
@@ -91,22 +47,18 @@ export default function UserForm(props: UserProp) {
                 aria-placeholder="Name"
                 {...formik.getFieldProps("name")}
               ></Input>
-              <FormErrorMessage>{formik.errors.fullName}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
             </FormControl>
-          </Flex>
-          <Flex gap={4}>
             <FormControl
               mb={4}
-              isInvalid={
-                formik.touched.email && formik.errors.email ? true : false
-              }
+              isInvalid={formik.touched.email && !!formik.errors.email}
             >
               <FormLabel ps={4} htmlFor="email">
                 Email
               </FormLabel>
               <Input
                 type="text"
-                placeholder="Email"
+                placeholder="email"
                 aria-placeholder="Email"
                 {...formik.getFieldProps("email")}
               ></Input>
@@ -114,55 +66,79 @@ export default function UserForm(props: UserProp) {
             </FormControl>
             <FormControl
               mb={4}
-              isInvalid={
-                formik.touched.userRole && formik.errors.userRole ? true : false
-              }
+              isInvalid={formik.touched.mobile && !!formik.errors.mobile}
             >
-              <FormLabel ps={4} htmlFor="email">
-                Role
+              <FormLabel ps={4} htmlFor="mobile">
+                Mobile
               </FormLabel>
-              <Select
-                defaultValue={props.userRole}
-                placeholder="Role"
-                aria-placeholder="Role"
-                {...formik.getFieldProps("role")}
-              >
-                <option value="admin">UI Engineer</option>
-                <option value="viewer">Lead Engineer</option>
-              </Select>
-              <FormErrorMessage>{formik.errors.userRole}</FormErrorMessage>
+              <InputGroup>
+                <InputLeftAddon>+91</InputLeftAddon>
+                <Input
+                  type="number"
+                  placeholder={`Mobile`}
+                  {...formik.getFieldProps("mobile")}
+                ></Input>
+              </InputGroup>
+              <FormErrorMessage>{formik.errors.mobile}</FormErrorMessage>
             </FormControl>
             <FormControl
               mb={4}
-              isInvalid={
-                formik.touched.userStatus && formik.errors.userStatus
-                  ? true
-                  : false
-              }
+              isInvalid={formik.touched.role && !!formik.errors.role}
             >
-              <FormLabel ps={4} htmlFor="email">
-                Status
+              <FormLabel ps={4} htmlFor="role">
+                Role
               </FormLabel>
               <Select
-                defaultValue={props.userStatus}
-                placeholder="Role"
-                aria-placeholder="Role"
+                placeholder="Select User Role"
                 {...formik.getFieldProps("role")}
               >
-                <option value="true">Enabled</option>
-                <option value="false">Disabled</option>
+                <option value="ADMIN">Admin</option>
               </Select>
-              <FormErrorMessage>{formik.errors.userStatus}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.role}</FormErrorMessage>
             </FormControl>
-          </Flex>
-          <Button
-            type="submit"
-            colorScheme={`teal`}
-            size={`sm`}
-            onClick={handleUserSubmit}
-          >
-            Submit
-          </Button>
+            <FormControl
+              mb={4}
+              isInvalid={formik.touched.username && !!formik.errors.username}
+            >
+              <FormLabel ps={4} htmlFor="name">
+                Username
+              </FormLabel>
+              <Input
+                type="text"
+                placeholder="Username"
+                aria-placeholder="Username"
+                {...formik.getFieldProps("username")}
+              ></Input>
+              <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
+            </FormControl>
+            <FormControl
+              mb={4}
+              isInvalid={formik.touched.password && !!formik.errors.password}
+            >
+              <FormLabel ps={4} htmlFor="name">
+                Password
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  type={show ? "text" : "password"}
+                  placeholder="Password"
+                  aria-placeholder="Password"
+                  {...formik.getFieldProps("password")}
+                ></Input>
+                <InputRightElement width="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={() => setShow((prev) => !prev)}
+                  >
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+            </FormControl>
+            <Button type="submit">Submit</Button>
+          </Box>
         </form>
       </Box>
     </>
