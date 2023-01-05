@@ -2,7 +2,7 @@ import { Box, Button, Divider, Flex, Menu, MenuButton, MenuItem, MenuList } from
 import styles from "./dashboard.module.scss";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useState } from "react";
-import GraphWithoutOTP from "../../components/Graphs/GraphWithoutOTP";
+import GraphTotalAndSuccessfullHits from "../../components/Graphs/GraphTotalAndSuccessfullHits";
 import { Duration } from "../../enums";
 
 export default function Dashboard() {
@@ -21,7 +21,7 @@ export default function Dashboard() {
                 </Menu>
             </Flex>
 
-            <GraphWithoutOTP duration={duration} />
+            <GraphTotalAndSuccessfullHits duration={duration} />
             <Divider marginBlock="2rem" variant="thick" />
         </Box>
     )

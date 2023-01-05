@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
 import ChartTabs from "../ChartTabs/ChartTabs";
@@ -7,7 +7,7 @@ interface Props {
     duration: string;
 }
 
-export default function GraphWithoutOTP({ duration }: Props) {
+export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
     const [tabIndex, setTabIndex] = useState<number>(0);
     const tabs = ['With OTP', 'Consolidated', 'WithoutOTP']
     const data = [
@@ -45,7 +45,10 @@ export default function GraphWithoutOTP({ duration }: Props) {
 
     return (
         <Box marginTop="2rem">
-            <ChartTabs setTabIndex={setTabIndex} />
+            <Flex justifyContent="space-between" alignItems="center" marginBottom="1rem" paddingStart="1rem">
+                <Heading as="h5" size="md">Total API Hits({tabs[tabIndex]}) and Successful API Hits</Heading>
+                <ChartTabs setTabIndex={setTabIndex} />
+            </Flex>
             <ResponsiveContainer width="100%" height={400}>
                 <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
