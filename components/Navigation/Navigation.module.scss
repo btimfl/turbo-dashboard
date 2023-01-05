@@ -1,39 +1,43 @@
 .container {
-    width:20%;
-    height:calc(100vh - 24px);
-    background-color: var(--chakra-colors-white);
-    position:absolute;
-    left: 0;
-    bottom: 0;
-    top: 41px;
-    z-index: 10;
+  width: 20%;
+  height: calc(100vh - 24px);
+  background-color: var(--chakra-colors-white);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 41px;
+  z-index: 10;
 
-    border-right: 1px solid var(--chakra-colors-gray-200);
+  border-right: 1px solid var(--chakra-colors-gray-200);
 }
 
 .openMenu {
-    navItem {
-        .openOnly {
-            display:initial;
-        }
-    }
+  width: max(15rem, 20%);
+
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
 }
 
 .closedMenu {
-    width:auto;
-    .navItem {
-        .openOnly {
-            display:none;
-        }
+  width: auto;
+  .navItem {
+    .openOnly {
+      display: none;
     }
+  }
 }
 
 .navTitle {
-    background: var(--chakra-colors-white);
+  background: var(--chakra-colors-white);
 
-    &.activeNav {
-        background-color: var(--chakra-colors-gray-100);
-    }
+  &.activeNav {
+    background-color: var(--chakra-colors-gray-100);
+  }
+}
+
+.activeChild {
+  font-weight: bold;
 }
 
 // .expandedNavItem {
@@ -41,26 +45,26 @@
 // }
 
 .overlay {
-    position:absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: (0,0,0,0.4);
-    z-index: 4;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: (0, 0, 0, 0.4);
+  z-index: 4;
 }
 
 .navList {
-    background-color: var(--chakra-colors-white);
+  background-color: var(--chakra-colors-white);
 }
 
-.childNavList {
-    // background-color: var(--chakra-colors-gray-100);
-}
+// .childNavList {
+//     background-color: var(--chakra-colors-gray-100);
+// }
 
 .navItem {
-    color: var(--chakra-colors-black);
-    &:hover {
-        background-color: var(--chakra-colors-gray-100); 
-    }
+  color: var(--chakra-colors-black);
+  &:hover {
+    background-color: var(--chakra-colors-gray-100);
+  }
 }

@@ -3,7 +3,7 @@ import { useFormik } from "formik"
 import { useState } from "react";
 import * as Yup from 'yup'
 
-export default function DashboardPage() {
+export default function AddUser() {
     const [show, setShow] = useState<boolean>(false);
 
     const formik = useFormik({
@@ -77,3 +77,5 @@ export default function DashboardPage() {
         </>
     )
 }
+
+AddUser.requireAuth = true;

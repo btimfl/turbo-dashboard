@@ -17,7 +17,7 @@ export default function TurboLayout({ children }: {
     }
 
     const handleRouteStart = () => {
-      setNavOpen(false);
+      setIsNavOpen(false);
       NProgress.start();
     }
 
@@ -28,17 +28,13 @@ export default function TurboLayout({ children }: {
       router.events.off('routeChangeComplete', handleRouteDone)
       router.events.off('routeChangeStart', handleRouteStart)
     }
-  }, []);
+  });
 
-  const [isNavOpen, setNavOpen] = useState(false);
-
-  const handleNavToggle = (event: any) => {
-    setNavOpen(!isNavOpen);
-  }
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
-      <HeaderBar onNavToggle={handleNavToggle} />
+      <HeaderBar onNavToggle={setIsNavOpen} />
       <Navigation isMenuOpen={isNavOpen} />
       <div className={`${styles.container} ${isNavOpen ? styles.expandedMenu : styles.collapsedMenu}`}>{children}</div>
     </>

@@ -18,12 +18,13 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
 
             if (decodedToken?.group) setAuth({
                 isAuthorized: true
-            })
+            });
+            else setAuth({
+                isAuthorized: false,
+            });
         };
 
-        window.addEventListener('storage', checkToken);
-
-        return () => window.removeEventListener('storage', checkToken);
+        checkToken();
     }, [])
 
     return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>

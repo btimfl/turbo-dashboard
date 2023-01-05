@@ -13,4 +13,4 @@ export default function HomeModule() {
   )
 }
 
-HomeModule.requireAuth = true;
+HomeModule.requireAuth = false;

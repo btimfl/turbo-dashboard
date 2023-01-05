@@ -1,11 +1,15 @@
 .container {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .expandedMenu {
-    padding-left: calc(20% + 1rem);
+  padding-left: calc(max(15rem, 20%) + 1rem);
+
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
 }
 
 .collapsedMenu {
-    padding-left: calc(40px + 1rem);
+  padding-left: calc(40px + 1rem);
 }

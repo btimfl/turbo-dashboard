@@ -2,7 +2,7 @@ import { Box, Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, Mo
 import { useReactTable, createColumnHelper, getCoreRowModel, flexRender, Table } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { getUserList } from '../../apis/get';
-import UserForm from '../../components/HeaderBar/UserForm/UserForm';
+import UserForm from '../../components/UserForm/UserForm';
 import styles from './users.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import { FaCircle, FaDotCircle } from 'react-icons/fa';
