@@ -4,6 +4,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { useState } from "react";
 import GraphTotalAndSuccessfullHits from "../../components/Graphs/GraphTotalAndSuccessfullHits";
 import { Duration } from "../../enums";
+import PieSuccessfulAndUnsuccessfulHits from "../../components/Graphs/PieSuccessfulAndUnsuccessfulHits";
 
 export default function Dashboard() {
     const [duration, setDuration] = useState<string>(Duration.LAST_WEEK);
@@ -22,6 +23,8 @@ export default function Dashboard() {
             </Flex>
 
             <GraphTotalAndSuccessfullHits duration={duration} />
+            <Divider marginBlock="2rem" variant="thick" />
+            <PieSuccessfulAndUnsuccessfulHits duration={duration} />
             <Divider marginBlock="2rem" variant="thick" />
         </Box>
     )

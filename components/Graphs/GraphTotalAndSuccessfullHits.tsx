@@ -9,7 +9,7 @@ interface Props {
 
 export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
     const [tabIndex, setTabIndex] = useState<number>(0);
-    const tabs = ['With OTP', 'Consolidated', 'WithoutOTP']
+    const tabs = ['With OTP', 'Consolidated', 'WithoutOTP'];
     const data = [
         {
             date: "1/1/23",
@@ -41,7 +41,7 @@ export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
     useEffect(() => {
         // refetch data on tab/duration change
         // show spinner, etc.
-    }, [tabIndex, duration])
+    }, [tabIndex, duration]);
 
     return (
         <Box marginTop="2rem">
