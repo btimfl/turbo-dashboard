@@ -2,6 +2,7 @@ import { Box, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra
 import styles from "./dashboard.module.scss";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useState } from "react";
+import GraphWithoutOTP from "../../components/Graphs/GraphWithoutOTP";
 
 enum Duration {
     LAST_WEEK = "Last 7 Days",
@@ -12,7 +13,8 @@ enum Duration {
 }
 
 export default function Dashboard() {
-    const [duration, setDuration] = useState<string>(Duration.LAST_WEEK)
+    const [duration, setDuration] = useState<string>(Duration.LAST_WEEK);
+
     return (
         <Box className={styles.container}>
             <Flex justifyContent="flex-end">
@@ -25,6 +27,8 @@ export default function Dashboard() {
                     </MenuList>
                 </Menu>
             </Flex>
+
+            <GraphWithoutOTP />
         </Box>
     )
 }
