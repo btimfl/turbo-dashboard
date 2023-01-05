@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
                 </TurboLayout>
               </AuthGuard>
             ) :
-            <Component {...pageProps}></Component>
+            <Component {...pageProps} />
           }
         </AuthProvider>
       </ChakraProvider>
