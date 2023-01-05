@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 
 export default function HomeModule() {
   return (
@@ -10,7 +10,7 @@ export default function HomeModule() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>
-  )
+  );
 }
 
 HomeModule.requireAuth = false;

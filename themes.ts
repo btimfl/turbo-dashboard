@@ -1,6 +1,6 @@
-import { modalAnatomy as parts } from '@chakra-ui/anatomy';
-import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
-import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
+import { modalAnatomy as parts } from "@chakra-ui/anatomy";
+import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(parts.keys);
@@ -18,8 +18,8 @@ export const modalTheme = defineMultiStyleConfig({
 });
 
 const thick = defineStyle({
-  borderStyle: 'dashed',
-  borderColor: 'black',
+  borderStyle: "dashed",
+  borderColor: "black",
 });
 
 export const dividerTheme = defineStyleConfig({
