@@ -1,0 +1,21 @@
+.tabs {
+  border: 1px solid black;
+  border-radius: 0.6rem;
+  width: max-content;
+  margin-left: auto;
+
+  .tab {
+    &:first-child {
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+
+    &:nth-child(2) {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    &:nth-child(3) {
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+  }
+}

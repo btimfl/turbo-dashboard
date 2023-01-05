@@ -1,16 +1,9 @@
-import { Box, Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import styles from "./dashboard.module.scss";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useState } from "react";
 import GraphWithoutOTP from "../../components/Graphs/GraphWithoutOTP";
-
-enum Duration {
-    LAST_WEEK = "Last 7 Days",
-    LAST_MONTH = "Last Month",
-    LAST_90_DAYS = "Last 90 Days",
-    THIS_WEEK = "This Week",
-    THIS_MONTH = "This Month",
-}
+import { Duration } from "../../enums";
 
 export default function Dashboard() {
     const [duration, setDuration] = useState<string>(Duration.LAST_WEEK);
@@ -28,7 +21,8 @@ export default function Dashboard() {
                 </Menu>
             </Flex>
 
-            <GraphWithoutOTP />
+            <GraphWithoutOTP duration={duration} />
+            <Divider marginBlock="2rem" variant="thick" />
         </Box>
     )
 }

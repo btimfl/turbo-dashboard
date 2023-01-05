@@ -1,7 +1,15 @@
 import { Box } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
+import ChartTabs from "../ChartTabs/ChartTabs";
 
-export default function GraphWithoutOTP() {
+interface Props {
+    duration: string;
+}
+
+export default function GraphWithoutOTP({ duration }: Props) {
+    const [tabIndex, setTabIndex] = useState<number>(0);
+    const tabs = ['With OTP', 'Consolidated', 'WithoutOTP']
     const data = [
         {
             date: "1/1/23",
@@ -30,8 +38,14 @@ export default function GraphWithoutOTP() {
         },
     ];
 
+    useEffect(() => {
+        // refetch data on tab/duration change
+        // show spinner, etc.
+    }, [tabIndex, duration])
+
     return (
         <Box marginTop="2rem">
+            <ChartTabs setTabIndex={setTabIndex} />
             <ResponsiveContainer width="100%" height={400}>
                 <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
