@@ -5,7 +5,7 @@ export interface Auth {
 export interface User {
   fullName: string;
   email: string;
-  userRole: string;
+  userRole?: string;
   userName: string;
   password: string;
   enabled: boolean;

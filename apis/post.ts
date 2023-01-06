@@ -3,7 +3,7 @@ import { User } from '../interfaces';
 const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
 
 export async function createUser(user: User): Promise<Response> {
-  const res = await fetch(`${baseUrl}/user/v1/create/user`, {
+  const res = await fetch(`${baseUrl}/v1/create/user`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
