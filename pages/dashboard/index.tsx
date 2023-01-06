@@ -38,7 +38,6 @@ export default function Dashboard() {
       <GraphTotalAndSuccessfullHits duration={duration} />
       <Divider marginBlock="2rem" variant="thick" />
       <PieSuccessfulAndUnsuccessfulHits duration={duration} />
-      <Divider marginBlock="2rem" variant="thick" />
     </Box>
   );
 }

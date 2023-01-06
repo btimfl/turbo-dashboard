@@ -10,18 +10,19 @@ import {
   InputLeftAddon,
   InputRightElement,
   Select,
+  Switch,
 } from "@chakra-ui/react";
 import { FormikProps } from "formik";
 import { useState } from "react";
 
 interface Props {
   formik: FormikProps<{
-    name: string,
+    fullName: string,
     email: string,
-    mobile: string,
-    role: string,
-    username: string,
+    userRole: string,
+    userName: string,
     password: string,
+    enabled: boolean,
   }>,
   isEdit: boolean,
 }
@@ -36,18 +37,18 @@ export default function UserForm({ formik, isEdit }: Props) {
           <Box w={`min(100%, 750px)`}>
             <FormControl
               mb={4}
-              isInvalid={formik.touched.name && !!formik.errors.name}
+              isInvalid={formik.touched.fullName && !!formik.errors.fullName}
             >
-              <FormLabel ps={4} htmlFor="name">
+              <FormLabel ps={4} htmlFor="fullName">
                 Name
               </FormLabel>
               <Input
                 type="text"
                 placeholder="Name"
                 aria-placeholder="Name"
-                {...formik.getFieldProps("name")}
+                {...formik.getFieldProps("fullName")}
               ></Input>
-              <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.fullName}</FormErrorMessage>
             </FormControl>
             <FormControl
               mb={4}
@@ -58,7 +59,7 @@ export default function UserForm({ formik, isEdit }: Props) {
               </FormLabel>
               <Input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 aria-placeholder="Email"
                 {...formik.getFieldProps("email")}
               ></Input>
@@ -66,39 +67,22 @@ export default function UserForm({ formik, isEdit }: Props) {
             </FormControl>
             <FormControl
               mb={4}
-              isInvalid={formik.touched.mobile && !!formik.errors.mobile}
+              isInvalid={formik.touched.userRole && !!formik.errors.userRole}
             >
-              <FormLabel ps={4} htmlFor="mobile">
-                Mobile
-              </FormLabel>
-              <InputGroup>
-                <InputLeftAddon>+91</InputLeftAddon>
-                <Input
-                  type="number"
-                  placeholder={`Mobile`}
-                  {...formik.getFieldProps("mobile")}
-                ></Input>
-              </InputGroup>
-              <FormErrorMessage>{formik.errors.mobile}</FormErrorMessage>
-            </FormControl>
-            <FormControl
-              mb={4}
-              isInvalid={formik.touched.role && !!formik.errors.role}
-            >
-              <FormLabel ps={4} htmlFor="role">
+              <FormLabel ps={4} htmlFor="userRole">
                 Role
               </FormLabel>
               <Select
                 placeholder="Select User Role"
-                {...formik.getFieldProps("role")}
+                {...formik.getFieldProps("userRole")}
               >
                 <option value="ADMIN">Admin</option>
               </Select>
-              <FormErrorMessage>{formik.errors.role}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.userRole}</FormErrorMessage>
             </FormControl>
             <FormControl
               mb={4}
-              isInvalid={formik.touched.username && !!formik.errors.username}
+              isInvalid={formik.touched.userName && !!formik.errors.userName}
             >
               <FormLabel ps={4} htmlFor="name">
                 Username
@@ -107,9 +91,9 @@ export default function UserForm({ formik, isEdit }: Props) {
                 type="text"
                 placeholder="Username"
                 aria-placeholder="Username"
-                {...formik.getFieldProps("username")}
+                {...formik.getFieldProps("userName")}
               ></Input>
-              <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
+              <FormErrorMessage>{formik.errors.userName}</FormErrorMessage>
             </FormControl>
             <FormControl
               mb={4}
@@ -136,6 +120,12 @@ export default function UserForm({ formik, isEdit }: Props) {
                 </InputRightElement>
               </InputGroup>
               <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+            </FormControl>
+            <FormControl mb={4} display='flex' alignItems='center' isInvalid={formik.touched.enabled && !!formik.errors.enabled}>
+              <FormLabel htmlFor='enabled' mb='0' ps={4} >
+                Enable
+              </FormLabel>
+              <Switch id='enabled' isChecked={formik.values.enabled} {...formik.getFieldProps('enabled')} />
             </FormControl>
             <Button type="submit">Submit</Button>
           </Box>
