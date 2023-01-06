@@ -9,13 +9,20 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./login.module.scss";
 import * as Yup from "yup";
+import { login } from "../../apis/post";
+import { useRouter } from "next/router";
+import { AuthContext } from "../../components/AuthProvider/AuthProvider";
 
 export default function Login() {
+  const toast = useToast();
+  const router = useRouter();
+  const { checkAuthorization } = useContext(AuthContext);
   const [show, setShow] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -29,7 +36,30 @@ export default function Login() {
         .email("Please enter a valid email"),
       password: Yup.string().required("Required"),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: async (values) => {
+      try {
+        const res = await login(values.email, values.password);
+        const data = await res.json();
+
+        if (data.hasOwnProperty('api_error')) throw new Error(data.api_error.message);
+
+        if (data.access_token) {
+          localStorage.setItem('turbo-merchant', data.access_token);
+          checkAuthorization();
+          router.replace('/dashboard');
+        }
+      } catch (err) {
+        toast({
+          title: 'A problem occurred!',
+          description: `${err}`,
+          status: 'error',
+          variant: 'left-accent',
+          position: 'top-right',
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    }
   });
 
   return (
@@ -80,6 +110,7 @@ export default function Login() {
           </FormControl>
           <Flex justifyContent="center">
             <Button
+              isLoading={formik.isSubmitting}
               w="10rem"
               type="submit"
               color="white"

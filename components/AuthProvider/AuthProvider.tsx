@@ -3,30 +3,33 @@ import jwtDecode from "jwt-decode";
 import { Auth } from "../../interfaces";
 
 export const AuthContext = React.createContext<Auth>({
-  isAuthorized: false,
+  isAuthorized: undefined,
+  checkAuthorization: () => { },
 });
 
 export default function AuthProvider({ children }: { children: JSX.Element }) {
+  const checkAuthorization = () => {
+    const token = localStorage.getItem("turbo-merchant");
+    const decodedToken: any = token ? jwtDecode(token) : null;
+
+    if (decodedToken?.group)
+      setAuth((prev) => {
+        return { ...prev, isAuthorized: true }
+      });
+    else
+      setAuth((prev) => {
+        return { ...prev, isAuthorized: false }
+      });
+  };
+
   const [auth, setAuth] = useState<Auth>({
-    isAuthorized: false,
+    isAuthorized: undefined,
+    checkAuthorization: checkAuthorization,
   });
 
+
   useEffect(() => {
-    const checkToken = () => {
-      const token = localStorage.getItem("turbo-merchant");
-      const decodedToken: any = token ? jwtDecode(token) : null;
-
-      if (decodedToken?.group)
-        setAuth({
-          isAuthorized: true,
-        });
-      else
-        setAuth({
-          isAuthorized: false,
-        });
-    };
-
-    checkToken();
+    checkAuthorization();
   }, []);
 
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
