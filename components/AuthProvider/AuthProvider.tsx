@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Auth from "../../interfaces/Auth";
 import jwtDecode from "jwt-decode";
+import { Auth } from "../../interfaces";
 
 export const AuthContext = React.createContext<Auth>({
   isAuthorized: false,

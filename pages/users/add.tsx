@@ -2,9 +2,10 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import UserForm from "../../components/UserForm/UserForm";
+import { User } from "../../interfaces";
 
 export default function AddUser() {
-  const formik = useFormik({
+  const formik = useFormik<User>({
     initialValues: {
       fullName: "",
       email: "",

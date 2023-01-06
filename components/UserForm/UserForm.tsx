@@ -14,16 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { FormikProps } from "formik";
 import { useState } from "react";
+import { User } from "../../interfaces";
 
 interface Props {
-  formik: FormikProps<{
-    fullName: string,
-    email: string,
-    userRole: string,
-    userName: string,
-    password: string,
-    enabled: boolean,
-  }>,
+  formik: FormikProps<User>,
   isEdit: boolean,
 }
 
