@@ -23,7 +23,20 @@ export async function createUser(user: User): Promise<Response> {
       'Content-type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('turbo-merchant')}`,
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify({
+      userName: 'XYZ2',
+      password: 'XYZ1',
+      credentialType: 'password',
+      email: 'XYZ1@gmail.com',
+      fullName: 'XYZ1',
+      enabled: true,
+      joinedGroupName: ['XYZ'],
+      temporaryPassword: false,
+      userRole: ['admin'],
+      attribute: {
+        locale: ['en'],
+      },
+    }),
   });
   return res;
 }

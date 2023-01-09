@@ -8,6 +8,6 @@ export interface User {
   email: string;
   userRole?: string;
   userName: string;
-  password: string;
+  password?: string;
   enabled: boolean;
 }

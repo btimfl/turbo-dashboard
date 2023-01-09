@@ -70,7 +70,7 @@ export default function UserForm({ formik, isEdit }: Props) {
                 placeholder="Select User Role"
                 {...formik.getFieldProps("userRole")}
               >
-                <option value="ADMIN">Admin</option>
+                <option value="admin">Admin</option>
               </Select>
               <FormErrorMessage>{formik.errors.userRole}</FormErrorMessage>
             </FormControl>
@@ -121,7 +121,7 @@ export default function UserForm({ formik, isEdit }: Props) {
               </FormLabel>
               <Switch id='enabled' isChecked={formik.values.enabled} {...formik.getFieldProps('enabled')} />
             </FormControl>
-            <Button type="submit">Submit</Button>
+            {!isEdit ? <Button type="submit">Submit</Button> : null}
           </Box>
         </form>
       </Box>

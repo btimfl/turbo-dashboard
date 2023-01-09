@@ -1414,18 +1414,6 @@
     "@tanstack/query-core" "4.20.9"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-table@^8.7.3":
-  version "8.7.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.7.4.tgz#cca662c738cd23f8f7522907a9612e08640ed4e0"
-  integrity sha512-4Q1OV3kUSxbtekclS3sqjCyCDowqCPruUCfHm1nGoPSmVLRCHoQ1E2rmzTVGeocEKgV9TDnj39tOgGwcADPuPA==
-  dependencies:
-    "@tanstack/table-core" "8.7.4"
-
-"@tanstack/table-core@8.7.4":
-  version "8.7.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.7.4.tgz#e6eb718db7fc45c95e8e64e1c66e08a78fa78bf7"
-  integrity sha512-OPhzca7e83KGukxLpZ+4F9OBp9CZXi9b/OGJBH8dlC3wpffcSSDczYGUGJKG7wirXQ6cUVYL+9G6UrrdnblKNQ==
-
 "@trivago/prettier-plugin-sort-imports@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@trivago/prettier-plugin-sort-imports/-/prettier-plugin-sort-imports-4.0.0.tgz#e0936d87fb8d65865c857e6a6dba644103db1b30"
