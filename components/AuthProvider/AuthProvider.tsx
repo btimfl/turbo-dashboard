@@ -12,7 +12,7 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
     const token = localStorage.getItem("turbo-merchant");
     const decodedToken: any = token ? jwtDecode(token) : null;
 
-    if (decodedToken?.group)
+    if (Date.now() < (decodedToken?.exp * 1000))
       setAuth((prev) => {
         return { ...prev, isAuthorized: true }
       });
