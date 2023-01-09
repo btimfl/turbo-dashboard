@@ -64,7 +64,7 @@ export default function UsersPage() {
     await formik.setValues({
       fullName: user.fullName,
       email: user.email,
-      userRole: Array.isArray(user.userRole) ? user.userRole.join(", ") : user.userRole,
+      userRole: user.userRole?.[0] || "",
       userName: user.userName,
       password: "",
       enabled: user.enabled ? true : false,
@@ -74,7 +74,15 @@ export default function UsersPage() {
 
   return (
     <>
-      <UsersTable data={data} onEditClick={onEditClick} />
+      <UsersTable
+        data={data?.map(user => {
+          return {
+            ...user,
+            userRole: user.userRole?.[0] || "",
+          }
+        })}
+        onEditClick={onEditClick}
+      />
       <Drawer
         isOpen={isOpen}
         placement='right'

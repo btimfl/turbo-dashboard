@@ -28,7 +28,7 @@ export default function UsersTable({ data, onEditClick }: Props) {
                             <Tr key={user.userName}>
                                 <Td>{user.fullName ?? "-"}</Td>
                                 <Td>{user.email ?? "-"}</Td>
-                                <Td>{Array.isArray(user.userRole) ? user.userRole.join(", ") : user.userRole}</Td>
+                                <Td>{user.userRole ?? "-"}</Td>
                                 <Td>{user.userName ?? "-"}</Td>
                                 <Td>
                                     {user.enabled ? (
