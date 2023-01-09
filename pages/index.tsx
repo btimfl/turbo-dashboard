@@ -1,8 +1,7 @@
-import Head from "next/head";
+import { Center, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../components/AuthProvider/AuthProvider";
-import styles from "../styles/Home.module.css";
 
 export default function HomeModule() {
   const router = useRouter();
@@ -14,12 +13,8 @@ export default function HomeModule() {
   });
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Turbo Dashboard</title>
-        <meta name="description" content="Turbo Merchant Experience" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-    </div>
+    <Center w="100vw" h="100vh">
+      <Spinner />
+    </Center>
   );
 }

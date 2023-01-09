@@ -7,6 +7,7 @@ import AuthProvider from "../components/AuthProvider/AuthProvider";
 import AuthGuard from "../components/AuthGuard/AuthGuard";
 import { NextPage } from "next";
 import { dividerTheme, modalTheme } from "../themes";
+import DynamicHead from "../components/DynamicHead/DynamicHead";
 
 const theme = extendTheme({
   components: {
@@ -26,15 +27,18 @@ export default function App({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <AuthProvider>
-          {Component.requireAuth ? (
-            <AuthGuard>
-              <TurboLayout>
-                <Component {...pageProps} />
-              </TurboLayout>
-            </AuthGuard>
-          ) : (
-            <Component {...pageProps} />
-          )}
+          <>
+            <DynamicHead title={Component.title} />
+            {Component.requireAuth ? (
+              <AuthGuard>
+                <TurboLayout>
+                  <Component {...pageProps} />
+                </TurboLayout>
+              </AuthGuard>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </>
         </AuthProvider>
       </ChakraProvider>
     </QueryClientProvider>

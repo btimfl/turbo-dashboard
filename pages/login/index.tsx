@@ -125,3 +125,5 @@ export default function Login() {
     </Box>
   );
 }
+
+Login.title = 'Login';
