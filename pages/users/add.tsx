@@ -24,9 +24,12 @@ export default function AddUser() {
       password: Yup.string().required('Required').min(8, "Password must be atleast 8 characters"),
     }),
     onSubmit: async (values) => {
-      const res = await createUser(values);
-      const data = await res.json();
-      console.log(data);
+      try {
+        const data = await createUser(values);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
     }
   });
 

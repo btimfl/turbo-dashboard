@@ -2,10 +2,7 @@ import { User } from '../interfaces';
 
 const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
 
-export async function login(
-  username: string,
-  password: string
-): Promise<Response> {
+export async function login(username: string, password: string): Promise<any> {
   const res = await fetch(`${baseUrl}/v1/login`, {
     method: 'POST',
     headers: {
@@ -13,10 +10,11 @@ export async function login(
     },
     body: JSON.stringify({ username, password }),
   });
-  return res;
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
 }
 
-export async function createUser(user: User): Promise<Response> {
+export async function createUser(user: User): Promise<any> {
   const res = await fetch(`${baseUrl}/v1/create/user`, {
     method: 'POST',
     headers: {
@@ -38,5 +36,6 @@ export async function createUser(user: User): Promise<Response> {
       },
     }),
   });
-  return res;
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
 }

@@ -48,13 +48,13 @@ export default function UsersPage() {
 
 
   if (isLoading) return (
-    <Center h="100vh">
+    <Center h="calc(100vh - 40px)">
       <Spinner />
     </Center>
   )
 
   if (isError) return (
-    <Center h="100vh">
+    <Center h="calc(100vh - 40px)">
       An error occurred, please reload or try again later!
     </Center>
   )

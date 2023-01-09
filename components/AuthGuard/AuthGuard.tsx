@@ -11,7 +11,7 @@ export default function AuthGuard({ children }: { children: JSX.Element }) {
     if (isAuthorized === false) router.replace('/login');
   }, [isAuthorized])
 
-  if (!isAuthorized) return <Center h="100vh" w="100vw"><Spinner /></Center>
+  if (!isAuthorized) return <Center h="calc(100vh - 40px)"><Spinner /></Center>
 
   return <>{children}</>;
 }
