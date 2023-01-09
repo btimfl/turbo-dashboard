@@ -1,10 +1,17 @@
-import { useContext } from "react";
+import { Center, Spinner } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 export default function AuthGuard({ children }: { children: JSX.Element }) {
+  const router = useRouter();
   const { isAuthorized } = useContext(AuthContext);
 
-  if (!isAuthorized) return <span>Unauthorized!</span>;
+  useEffect(() => {
+    if (isAuthorized === false) router.replace('/login');
+  }, [isAuthorized])
+
+  if (!isAuthorized) return <Center h="100vh" w="100vw"><Spinner /></Center>
 
   return <>{children}</>;
 }
