@@ -5,10 +5,19 @@ export interface Auth {
 }
 
 export interface User {
-  fullName: string;
   email: string;
-  userRole?: string;
-  userName: string;
-  password?: string;
-  enabled: boolean;
+  fullName: string;
+  userStatus: boolean;
+  phoneNumber: string;
+  joinedGroupName: string[];
+  userRole: string[];
+}
+
+export interface UserFormFields {
+  email: string;
+  password: string;
+  fullName: string;
+  userStatus: boolean;
+  phoneNumber: string;
+  userRole: string;
 }
