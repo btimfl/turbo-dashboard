@@ -1,10 +1,10 @@
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Tfoot, Tag, TagLeftIcon, Button } from "@chakra-ui/react";
 import { info } from "console";
 import { FaCircle } from "react-icons/fa";
-import { User } from "../../interfaces";
+import { User, UserFormFields } from "../../interfaces";
 
 interface Props {
-    data: User[],
+    data: UserFormFields[],
     onEditClick: Function,
 }
 
@@ -17,7 +17,6 @@ export default function UsersTable({ data, onEditClick }: Props) {
                         <Th>Name</Th>
                         <Th>Email</Th>
                         <Th>Role</Th>
-                        <Th>Usermame</Th>
                         <Th>Status</Th>
                         <Th>Action</Th>
                     </Tr>
@@ -25,13 +24,12 @@ export default function UsersTable({ data, onEditClick }: Props) {
                 <Tbody>
                     {data?.map(user => {
                         return (
-                            <Tr key={user.userName}>
+                            <Tr key={user.email}>
                                 <Td>{user.fullName ?? "-"}</Td>
                                 <Td>{user.email ?? "-"}</Td>
                                 <Td>{user.userRole ?? "-"}</Td>
-                                <Td>{user.userName ?? "-"}</Td>
                                 <Td>
-                                    {user.enabled ? (
+                                    {user.userStatus ? (
                                         <Tag colorScheme="green">
                                             <TagLeftIcon as={FaCircle} fontSize={`5px`} />
                                             Enabled
@@ -48,7 +46,7 @@ export default function UsersTable({ data, onEditClick }: Props) {
                                     <Button
                                         colorScheme={`teal`}
                                         size={`xs`}
-                                        onClick={() => onEditClick(user.userName)}
+                                        onClick={() => onEditClick(user.email)}
                                     >
                                         Edit
                                     </Button>

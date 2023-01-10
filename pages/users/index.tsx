@@ -10,38 +10,62 @@ import {
   DrawerOverlay,
   Center,
   Spinner,
+  useToast,
 } from "@chakra-ui/react";
-import { User } from "../../interfaces";
+import { User, UserFormFields } from "../../interfaces";
 import UsersTable from "../../components/UsersTable/UsersTable";
 import { useQuery } from "@tanstack/react-query";
 import { getUserList } from "../../apis/get";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import UserForm from "../../components/UserForm/UserForm";
+import { useState } from "react";
+import { updateUser } from "../../apis/patch";
+
 export default function UsersPage() {
+  const toast = useToast();
+  const [user, setUser] = useState<any>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { isLoading, isError, data } = useQuery(['getAllUsers'], getUserList);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const formik = useFormik<User>({
+  // FORM FOR EDIT USER
+  const formik = useFormik<UserFormFields>({
     initialValues: {
-      fullName: "",
       email: "",
-      userRole: "",
-      userName: "",
       password: "",
-      enabled: true,
+      fullName: "",
+      userStatus: true,
+      phoneNumber: "",
+      userRole: "",
     },
     validationSchema: Yup.object({
-      fullName: Yup.string().required("Requiured"),
       email: Yup.string()
         .email("Please enter a valid e-mail")
         .required("Required"),
-      userName: Yup.string().required("Required"),
       password: Yup.string().min(8, "Password must be atleast 8 characters"),
+      fullName: Yup.string().required("Required"),
+      phoneNumber: Yup.string().length(10, "Please enter a valid phone number"),
+      userRole: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
-      console.log('UPDATED', values);
+      const payload = {};
+      Object.keys(values).map(key => {
+        if (key === 'password' || key == 'email') return;
+        if (values[key] != user?.[key]) payload[key] = values[key];
+      })
+      try {
+        await updateUser(values.email, payload);
+      } catch (err) {
+        toast({
+          title: 'A problem occurred!',
+          description: `${err}`,
+          status: 'error',
+          variant: 'left-accent',
+          position: 'top-right',
+          duration: 4000,
+          isClosable: true,
+        });
+      }
       onClose();
     }
   });
@@ -59,15 +83,16 @@ export default function UsersPage() {
     </Center>
   )
 
-  const onEditClick = async (userName: string) => {
-    const user: User = data.find(user => user.userName === userName);
+  const onEditClick = async (email: string) => {
+    const _user = data.find(user => user.email === email);
+    setUser(_user);
     await formik.setValues({
-      fullName: user.fullName,
-      email: user.email,
-      userRole: user.userRole?.[0] || "",
-      userName: user.userName,
+      email: _user.email,
       password: "",
-      enabled: user.enabled ? true : false,
+      fullName: _user.fullName,
+      userStatus: _user.userStatus ? true : false,
+      phoneNumber: _user.phoneNumber ?? "",
+      userRole: _user.userRole?.[0] || "",
     })
     onOpen();
   }
@@ -77,7 +102,11 @@ export default function UsersPage() {
       <UsersTable
         data={data?.map(user => {
           return {
-            ...user,
+            email: user.email,
+            password: "",
+            fullName: user.fullName,
+            userStatus: user.userStatus ? true : false,
+            phoneNumber: user.phoneNumber ?? "",
             userRole: user.userRole?.[0] || "",
           }
         })}

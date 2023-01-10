@@ -14,10 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { FormikProps } from "formik";
 import { useState } from "react";
-import { User } from "../../interfaces";
+import { UserFormFields } from "../../interfaces";
 
 interface Props {
-  formik: FormikProps<User>,
+  formik: FormikProps<UserFormFields>,
   isEdit: boolean,
 }
 
@@ -29,6 +29,22 @@ export default function UserForm({ formik, isEdit }: Props) {
       <Box>
         <form onSubmit={formik.handleSubmit}>
           <Box w={`min(100%, 750px)`}>
+            <FormControl
+              mb={4}
+              isInvalid={formik.touched.email && !!formik.errors.email}
+              isDisabled={isEdit}
+            >
+              <FormLabel ps={4} htmlFor="email">
+                Email
+              </FormLabel>
+              <Input
+                type="text"
+                placeholder="Email"
+                aria-placeholder="Email"
+                {...formik.getFieldProps("email")}
+              ></Input>
+              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+            </FormControl>
             <FormControl
               mb={4}
               isInvalid={formik.touched.fullName && !!formik.errors.fullName}
@@ -44,20 +60,23 @@ export default function UserForm({ formik, isEdit }: Props) {
               ></Input>
               <FormErrorMessage>{formik.errors.fullName}</FormErrorMessage>
             </FormControl>
-            <FormControl
-              mb={4}
-              isInvalid={formik.touched.email && !!formik.errors.email}
-            >
-              <FormLabel ps={4} htmlFor="email">
-                Email
+            <FormControl mb={4} isInvalid={formik.touched.phoneNumber && !!formik.errors.phoneNumber}>
+              <FormLabel ps={4} htmlFor="phoneNumber">
+                Phone Number
               </FormLabel>
-              <Input
-                type="text"
-                placeholder="Email"
-                aria-placeholder="Email"
-                {...formik.getFieldProps("email")}
-              ></Input>
-              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              <InputGroup>
+                <InputLeftAddon p={2} background={`none`}>
+                  +91
+                </InputLeftAddon>
+                <Input
+                  ps={2}
+                  id='phone'
+                  type='number'
+                  placeholder='Phone Number'
+                  {...formik.getFieldProps('phoneNumber')}
+                />
+              </InputGroup>
+              <FormErrorMessage>{formik.errors.phoneNumber}</FormErrorMessage>
             </FormControl>
             <FormControl
               mb={4}
@@ -74,52 +93,43 @@ export default function UserForm({ formik, isEdit }: Props) {
               </Select>
               <FormErrorMessage>{formik.errors.userRole}</FormErrorMessage>
             </FormControl>
-            <FormControl
-              mb={4}
-              isInvalid={formik.touched.userName && !!formik.errors.userName}
-            >
-              <FormLabel ps={4} htmlFor="name">
-                Username
-              </FormLabel>
-              <Input
-                type="text"
-                placeholder="Username"
-                aria-placeholder="Username"
-                {...formik.getFieldProps("userName")}
-              ></Input>
-              <FormErrorMessage>{formik.errors.userName}</FormErrorMessage>
-            </FormControl>
-            <FormControl
-              mb={4}
-              isInvalid={formik.touched.password && !!formik.errors.password}
-            >
-              <FormLabel ps={4} htmlFor="name">
-                Password
-              </FormLabel>
-              <InputGroup>
-                <Input
-                  type={show ? "text" : "password"}
-                  placeholder="Password"
-                  aria-placeholder="Password"
-                  {...formik.getFieldProps("password")}
-                ></Input>
-                <InputRightElement width="4.5rem">
-                  <Button
-                    h="1.75rem"
-                    size="sm"
-                    onClick={() => setShow((prev) => !prev)}
+            {
+              isEdit ?
+                null :
+                (
+                  <FormControl
+                    mb={4}
+                    isInvalid={formik.touched.password && !!formik.errors.password}
                   >
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-            </FormControl>
-            <FormControl mb={4} display='flex' alignItems='center' isInvalid={formik.touched.enabled && !!formik.errors.enabled}>
-              <FormLabel htmlFor='enabled' mb='0' ps={4} >
+                    <FormLabel ps={4} htmlFor="name">
+                      Password
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        type={show ? "text" : "password"}
+                        placeholder="Password"
+                        aria-placeholder="Password"
+                        {...formik.getFieldProps("password")}
+                      ></Input>
+                      <InputRightElement width="4.5rem">
+                        <Button
+                          h="1.75rem"
+                          size="sm"
+                          onClick={() => setShow((prev) => !prev)}
+                        >
+                          {show ? "Hide" : "Show"}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+                  </FormControl>
+                )
+            }
+            <FormControl mb={4} display='flex' alignItems='center' isInvalid={formik.touched.userStatus && !!formik.errors.userStatus}>
+              <FormLabel htmlFor='userStatus' mb='0' ps={4} >
                 Enable
               </FormLabel>
-              <Switch id='enabled' isChecked={formik.values.enabled} {...formik.getFieldProps('enabled')} />
+              <Switch id='userStatus' isChecked={formik.values.userStatus} {...formik.getFieldProps('userStatus')} />
             </FormControl>
             {!isEdit ? <Button type="submit">Submit</Button> : null}
           </Box>
