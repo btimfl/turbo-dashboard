@@ -5,6 +5,7 @@ import { Auth } from "../../interfaces";
 export const AuthContext = React.createContext<Auth>({
   isAuthorized: undefined,
   checkAuthorization: () => { },
+  merchant: undefined,
 });
 
 export default function AuthProvider({ children }: { children: JSX.Element }) {
@@ -14,17 +15,18 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
 
     if (Date.now() < (decodedToken?.exp * 1000))
       setAuth((prev) => {
-        return { ...prev, isAuthorized: true }
+        return { ...prev, isAuthorized: true, merchant: decodedToken.group[0] }
       });
     else
       setAuth((prev) => {
-        return { ...prev, isAuthorized: false }
+        return { ...prev, isAuthorized: false, merchant: null }
       });
   };
 
   const [auth, setAuth] = useState<Auth>({
     isAuthorized: undefined,
     checkAuthorization: checkAuthorization,
+    merchant: undefined,
   });
 
 

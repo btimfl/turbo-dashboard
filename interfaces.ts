@@ -1,6 +1,7 @@
 export interface Auth {
-  isAuthorized: Boolean | undefined;
+  isAuthorized: boolean | undefined;
   checkAuthorization: Function;
+  merchant: string | undefined | null;
 }
 
 export interface User {

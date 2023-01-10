@@ -22,7 +22,7 @@ export const MENU_ITEMS = [
     children: [
       {
         title: "Users",
-        path: "/",
+        path: "",
       },
       {
         title: "Add User",
