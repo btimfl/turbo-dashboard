@@ -14,7 +14,7 @@ export async function login(payload: any): Promise<any> {
   return res.json();
 }
 
-export async function createUser(user: any): Promise<any> {
+export async function createUser(user: User): Promise<any> {
   const res = await fetch(`${baseUrl}/v1/create/user`, {
     method: 'POST',
     headers: {
