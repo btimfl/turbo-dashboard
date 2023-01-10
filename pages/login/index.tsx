@@ -38,7 +38,7 @@ export default function Login() {
     }),
     onSubmit: async (values) => {
       try {
-        const data = await login(values.email, values.password);
+        const data = await login(values);
 
         if (data.hasOwnProperty('api_error')) throw new Error(data.api_error.message);
 

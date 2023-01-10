@@ -2,13 +2,13 @@ import { User } from '../interfaces';
 
 const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
 
-export async function login(username: string, password: string): Promise<any> {
+export async function login(payload: any): Promise<any> {
   const res = await fetch(`${baseUrl}/v1/login`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error(res.statusText);
   return res.json();
