@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import {
   Cell,
@@ -65,9 +65,9 @@ export default function PieSuccessfulAndUnsuccessfulHits({ duration }: Props) {
         marginBottom="1rem"
         paddingStart="1rem"
       >
-        <Heading as="h5" size="md">
+        <Text textDecor="underline" fontSize="lg">
           Successful and Unsuccessful API hits
-        </Heading>
+        </Text>
         <ChartTabs setTabIndex={setTabIndex} />
       </Flex>
       <ResponsiveContainer width="100%" height={400}>

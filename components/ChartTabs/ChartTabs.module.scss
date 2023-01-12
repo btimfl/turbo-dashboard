@@ -2,9 +2,11 @@
   border: 1px solid black;
   border-radius: 0.6rem;
   width: max-content;
-  // margin-left: auto;
 
   .tab {
+    padding-block: 0.25rem;
+    padding-inline: 0.5rem;
+
     &:first-child {
       border-radius: 0.5rem 0 0 0.5rem;
     }
