@@ -19,14 +19,16 @@ import { getUserList } from "../../apis/get";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import UserForm from "../../components/UserForm/UserForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { updateUser } from "../../apis/patch";
+import { AuthContext } from "../../components/AuthProvider/AuthProvider";
 
 export default function UsersPage() {
   const toast = useToast();
+  const auth = useContext(AuthContext);
   const [user, setUser] = useState<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isLoading, isError, data } = useQuery(['getAllUsers'], getUserList);
+  const { isLoading, isError, data } = useQuery(['getAllUsers'], () => getUserList(auth.merchant!));
 
   // FORM FOR EDIT USER
   const formik = useFormik<UserFormFields>({

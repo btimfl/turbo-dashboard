@@ -1,7 +1,7 @@
 const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
 
-export async function getUserList(): Promise<any> {
-  const res = await fetch(`${baseUrl}/v1/users/DELHI`, {
+export async function getUserList(merchant: string): Promise<any> {
+  const res = await fetch(`${baseUrl}/v1/users/${merchant}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('turbo-merchant')}`,
     },

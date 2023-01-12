@@ -15,7 +15,7 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
 
     if (Date.now() < (decodedToken?.exp * 1000))
       setAuth((prev) => {
-        return { ...prev, isAuthorized: true, merchant: decodedToken.group[0] }
+        return { ...prev, isAuthorized: true, merchant: decodedToken.group[0].substring(1)?.trim() }
       });
     else
       setAuth((prev) => {
