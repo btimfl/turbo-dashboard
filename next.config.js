@@ -11,6 +11,7 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
+  trailingSlash: true,
   // assetPrefix: './'
 };
 
