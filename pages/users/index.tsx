@@ -28,7 +28,7 @@ export default function UsersPage() {
   const auth = useContext(AuthContext);
   const [user, setUser] = useState<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isLoading, isError, data } = useQuery(['getAllUsers'], () => getUserList(auth.merchant!));
+  const { isLoading, isError, data } = useQuery(['getAllUsers', isOpen], () => getUserList(auth.merchant!));
 
   // FORM FOR EDIT USER
   const formik = useFormik<UserFormFields>({
