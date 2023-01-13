@@ -26,8 +26,10 @@ export default function HeaderBar({ onNavToggle }: { onNavToggle: Function }) {
         aria-label="Search database"
         icon={<Icon as={CgMenu} />}
         onClick={() => onNavToggle((prev: boolean) => !prev)}
+        _hover={{ background: 'transparent'}}
+        _active={{ background: 'transparent' }}
       />
-      <Text as="h1" flexGrow={1}>
+      <Text as="h1" flexGrow={1} fontWeight="bold" color="teal.500">
         TURBO
       </Text>
       <Menu>
