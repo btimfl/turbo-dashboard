@@ -11,6 +11,9 @@ import {
   Center,
   Spinner,
   useToast,
+  Box,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 import { User, UserFormFields } from "../../interfaces";
 import UsersTable from "../../components/UsersTable/UsersTable";
@@ -22,7 +25,7 @@ import UserForm from "../../components/UserForm/UserForm";
 import { useContext, useState } from "react";
 import { updateUser } from "../../apis/patch";
 import { AuthContext } from "../../components/AuthProvider/AuthProvider";
-
+import styles from './users.module.scss'
 export default function UsersPage() {
   const toast = useToast();
   const auth = useContext(AuthContext);
@@ -101,6 +104,12 @@ export default function UsersPage() {
 
   return (
     <>
+    <Box className={styles.tableContainer}>
+      <Flex className={styles.tableHeader} p={2} mb={2}>
+        <Text fontSize="sm" fontWeight="bold" color="gray.700">
+          List of Users
+        </Text>
+      </Flex>
       <UsersTable
         data={data?.map(user => {
           return {
@@ -114,6 +123,7 @@ export default function UsersPage() {
         })}
         onEditClick={onEditClick}
       />
+    </Box>
       <Drawer
         isOpen={isOpen}
         placement='right'
