@@ -52,7 +52,7 @@ export default function Dashboard() {
           </Text>
           <ChartTabs tabIndex={tabIndexLine} setTabIndex={setTabIndexLine} />
         </Flex>
-        <Flex p={2}>
+        <Flex p={2} justify="center">
           <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine}/>
         </Flex>
       </Box>

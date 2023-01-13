@@ -37,16 +37,14 @@ export default function GraphTotalAndSuccessfullHits({ tabIndex, duration }: Pro
     refetchOnReconnect: false,
   })
 
-
-
   if (isLoading) return (
-    <Center h="calc(100vh - 40px)">
-      <Spinner />
+    <Center justifyContent={`center`} h={`100%`} minH={`400px`}>
+      <Spinner/>
     </Center>
   )
 
   if (isError) return (
-    <Center h="calc(100vh - 40px)">
+    <Center>
       An error occurred, please reload or try again later!
     </Center>
   )
