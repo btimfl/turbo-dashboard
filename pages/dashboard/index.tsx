@@ -53,7 +53,7 @@ export default function Dashboard() {
           <ChartTabs tabIndex={tabIndexLine} setTabIndex={setTabIndexLine} />
         </Flex>
         <Flex p={2}>
-          <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine}/>
+          <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine} />
         </Flex>
       </Box>
 
