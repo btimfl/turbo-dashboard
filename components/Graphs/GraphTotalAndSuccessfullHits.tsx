@@ -60,9 +60,9 @@ export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
         marginBottom="1rem"
         paddingStart="1rem"
       >
-        <Heading as="h5" size="md">
+        <Text textDecor="underline" fontSize="lg">
           Total API Hits({tabs[tabIndex]}) and Successful API Hits
-        </Heading>
+        </Text>
         <ChartTabs setTabIndex={setTabIndex} />
       </Flex>
       <ResponsiveContainer width="100%" height={400}>

@@ -22,7 +22,7 @@ export default function Dashboard() {
     <Box className={styles.container}>
       <Flex justifyContent="flex-end">
         <Menu>
-          <MenuButton as={Button} rightIcon={<AiFillCaretDown />} w="10rem">
+          <MenuButton as={Button} rightIcon={<AiFillCaretDown />} w="8.5rem" fontSize="sm">
             {duration}
           </MenuButton>
           <MenuList>
