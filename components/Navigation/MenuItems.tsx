@@ -1,13 +1,9 @@
 import { Icon } from "@chakra-ui/react";
 import {
-  FaCartArrowDown,
   FaChartBar,
-  FaDollarSign,
-  FaShoppingBag,
   FaUserAlt,
 } from "react-icons/fa";
-import { IoTicketOutline, IoSettings } from "react-icons/io5";
-import { string } from "yup/lib/locale";
+import { TbReport } from "react-icons/tb";
 
 export const MENU_ITEMS = [
   {
@@ -15,6 +11,12 @@ export const MENU_ITEMS = [
     title: "Dashboard",
     children: [],
     path: "/dashboard",
+  },
+  {
+    icon: <Icon as={TbReport}></Icon>,
+    title: "Reports",
+    children: [],
+    path: "/reports",
   },
   {
     icon: <Icon as={FaUserAlt}></Icon>,
