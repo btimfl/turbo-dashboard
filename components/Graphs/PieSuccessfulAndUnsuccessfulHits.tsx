@@ -11,39 +11,12 @@ import {
 } from "recharts";
 import { fetchGraphData } from "../../apis/post";
 import { Chart, ChartWorkflow, Duration, UnifillAPI } from "../../enums";
+import { resolveDuration, resolveWorkflow } from "../../utils";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 interface Props {
   tabIndex: number;
   duration: Duration;
-}
-
-function resolveWorkflow(tabIndex: number): ChartWorkflow | null {
-  // To make the API work for now
-  return null;
-
-  if (tabIndex === 0) return null;
-  else if (tabIndex === 1) return ChartWorkflow.WITH_OTP;
-  else return ChartWorkflow.WITHOUT_OTP;
-}
-
-function resolveDuration(duration: Duration): { from: string, to: string } {
-  const toDate = new Date();
-  const fromDate = new Date();
-
-  switch (duration) {
-    case Duration.LAST_WEEK:
-      fromDate.setDate(fromDate.getDate() - 7);
-      break;
-    case Duration.LAST_MONTH:
-      fromDate.setDate(fromDate.getDate() - 30);
-      break;
-    case Duration.LAST_90_DAYS:
-      fromDate.setDate(fromDate.getDate() - 90);
-      break;
-  }
-
-  return { from: fromDate.toLocaleDateString('en-CA'), to: toDate.toLocaleDateString('en-CA') };
 }
 
 export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration }: Props) {
@@ -72,8 +45,6 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration }:
     { name: "Hits with address match", value: rawData[UnifillAPI.SUCCESSFUL].length || 0 },
     { name: "Hits with no address match", value: rawData[UnifillAPI.UNSUCCESSFUL].length || 0 },
   ];
-
-  console.log(data);
 
   const COLORS = ["red", "#4185F4"];
 

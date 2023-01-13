@@ -1,5 +1,6 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Center, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { useContext, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -10,51 +11,99 @@ import {
   Legend,
   Line,
 } from "recharts";
+import { fetchGraphData } from "../../apis/post";
+import { Chart, Duration, UnifillAPI } from "../../enums";
+import { resolveDuration, resolveWorkflow } from "../../utils";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 interface Props {
   tabIndex: number;
-  duration: string;
+  duration: Duration;
 }
 
-export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
-  const [tabIndex, setTabIndex] = useState<number>(0);
-  const tabs = ["Consolidated", "With OTP", "WithoutOTP"];
-  const data = [
-    {
-      date: "1/1/23",
-      total: 40,
-      successful: 10,
-    },
-    {
-      date: "8/1/23",
-      total: 20,
-      successful: 3,
-    },
-    {
-      date: "15/1/23",
-      total: 80,
-      successful: 15,
-    },
-    {
-      date: "22/1/23",
-      total: 100,
-      successful: 40,
-    },
-    {
-      date: "29/1/23",
-      total: 45,
-      successful: 10,
-    },
-  ];
+interface CartesianPoint {
+  date: string;
+  total: number;
+  successful: number;
+}
 
-  useEffect(() => {
-    // refetch data on tab/duration change
-    // show spinner, etc.
-  }, [tabIndex, duration]);
+export default function GraphTotalAndSuccessfullHits({ tabIndex, duration }: Props) {
+  const auth = useContext(AuthContext);
+  const { from, to } = resolveDuration(duration);
+
+  const { isLoading, isError, data: rawData } = useQuery(['graphData', tabIndex, duration], () => fetchGraphData(auth.merchant!, Chart.PIE, resolveWorkflow(tabIndex), from, to), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  })
+
+
+
+  if (isLoading) return (
+    <Center h="calc(100vh - 40px)">
+      <Spinner />
+    </Center>
+  )
+
+  if (isError) return (
+    <Center h="calc(100vh - 40px)">
+      An error occurred, please reload or try again later!
+    </Center>
+  )
+
+  const dataMap = new Map();
+  rawData[UnifillAPI.SUCCESSFUL]?.forEach(point => {
+    const date = new Date(point.created_at).toLocaleDateString('en-US');
+
+    if (dataMap.has(date)) dataMap.set(date, {
+      total: dataMap.get(date).total + 1,
+      successful: dataMap.get(date).successful + 1,
+    });
+
+    if (!dataMap.has(date)) dataMap.set(date, {
+      total: 1,
+      successful: 1,
+    });
+  });
+
+  rawData[UnifillAPI.UNSUCCESSFUL]?.forEach(point => {
+    const date = new Date(point.created_at).toLocaleDateString('en-US');
+
+    if (dataMap.has(date)) dataMap.set(date, {
+      total: dataMap.get(date).total + 1,
+      successful: dataMap.get(date).successful,
+    });
+
+    if (!dataMap.has(date)) dataMap.set(date, {
+      total: 1,
+      successful: 0,
+    });
+  });
+
+  const dataUS: CartesianPoint[] = [];
+  dataMap.forEach((value, key) => {
+    dataUS.push({
+      date: key,
+      total: value.total,
+      successful: value.successful,
+    })
+  });
+
+  dataUS.sort((a: CartesianPoint, b: CartesianPoint) => {
+    const timeA = new Date(a.date).getTime(), timeB = new Date(b.date).getTime();
+    return timeA < timeB ? -1 : 1;
+  })
+
+  const dataIN = dataUS.map((point: CartesianPoint) => {
+    return {
+      ...point,
+      date: new Date(point.date).toLocaleDateString('en-IN'),
+    }
+  });
 
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <LineChart data={data}>
+      <LineChart data={dataIN}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="date"
