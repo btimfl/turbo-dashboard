@@ -108,11 +108,12 @@ export default function GraphTotalAndSuccessfullHits({ tabIndex, duration, fromD
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="date"
-          label={{ value: "Date", position: "insideBottom", offset: "-5" }}
+          label={{ value: "Date", position: "insideBottom", offset: "-5", fontSize: "0.75rem" }}
+          fontSize="0.75rem"
         />
         {/* label={{ value: 'Hits', angle: -90, position: 'left', offset: '-20' }} */}
-        <YAxis />
-        <Tooltip />
+        <YAxis fontSize="0.75rem"  label={{ value: "API Count", angle: -90, position: "insideBottom", offset: "150", fontSize: "0.75rem"}}/>
+        <Tooltip labelStyle={{ fontSize: "0.75rem", paddingBottom: '0.25rem' }} itemStyle={{ fontSize: "0.75rem", padding: '0' }} />
         <Legend verticalAlign="top" align="center" />
         <Line
           type="monotone"
