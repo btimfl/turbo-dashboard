@@ -16,7 +16,7 @@ import { Duration } from "../../enums";
 import PieSuccessfulAndUnsuccessfulHits from "../../components/Graphs/PieSuccessfulAndUnsuccessfulHits";
 
 export default function Dashboard() {
-  const [duration, setDuration] = useState<string>(Duration.LAST_WEEK);
+  const [duration, setDuration] = useState<Duration>(Duration.LAST_WEEK);
 
   return (
     <Box className={styles.container}>
