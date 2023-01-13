@@ -7,6 +7,7 @@
   bottom: 0;
   top: 41px;
   z-index: 10;
+  min-width: 40px;
 
   border-right: 1px solid var(--chakra-colors-gray-200);
 }
@@ -64,7 +65,15 @@
 
 .navItem {
   color: var(--chakra-colors-black);
+  position:relative;
   &:hover {
     background-color: var(--chakra-colors-gray-100);
   }
+}
+
+.navIconContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.8rem 0.75rem;
 }

@@ -54,10 +54,10 @@ export default function Navigation({ isMenuOpen }: Props) {
                   >
                     <Flex flexDir={`row`} alignItems={`center`} w={`100%`}>
                       <Link href={`${navItem.path ?? `#`}`}>
-                        {navItem.icon}
+                        <Text as="span" className={styles.navIconContainer}>{navItem.icon}</Text>
                       </Link>
                       <Link href={`${navItem.path ?? `#`}`}>
-                        <Box ps={4} className={styles.openOnly}>
+                        <Box ps={6} className={styles.openOnly}>
                           <Text as="span" _hover={{ textDecor: `underline` }}>
                             {navItem.title}
                           </Text>
