@@ -3,24 +3,42 @@ import {
   Button,
   Divider,
   Flex,
+  Input,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Text
+  Text,
+  useToast
 } from "@chakra-ui/react";
 import styles from "./dashboard.module.scss";
 import { AiFillCaretDown } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GraphTotalAndSuccessfullHits from "../../components/Graphs/GraphTotalAndSuccessfullHits";
 import { Duration } from "../../enums";
 import PieSuccessfulAndUnsuccessfulHits from "../../components/Graphs/PieSuccessfulAndUnsuccessfulHits";
 import ChartTabs from "../../components/ChartTabs/ChartTabs";
 
 export default function Dashboard() {
+  const toast = useToast();
   const [tabIndexPie, setTabIndexPie] = useState<number>(0);
   const [tabIndexLine, setTabIndexLine] = useState<number>(0);
   const [duration, setDuration] = useState<Duration>(Duration.LAST_WEEK);
+  const [fromDate, setFromDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [toDate, setToDate] = useState<string>(new Date().toISOString().split('T')[0]);
+
+  useEffect(() => {
+    if (new Date(fromDate).getTime() > new Date(toDate).getTime()) {
+      toast({
+        title: 'Invalid Date Range',
+        status: 'error',
+        variant: 'left-accent',
+        position: 'top-right',
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }, [fromDate, toDate])
 
   return (
     <Box className={styles.container}>
@@ -38,6 +56,22 @@ export default function Dashboard() {
             ))}
           </MenuList>
         </Menu>
+        {
+          duration === Duration.CUSTOM
+            ? (
+              <>
+                <Box ml={2}>
+                  <Text as="span" mr={2}>From: </Text>
+                  <Input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} w="10rem" />
+                </Box>
+                <Box ml={2}>
+                  <Text as="span" mr={2}>To: </Text>
+                  <Input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} w="10rem" />
+                </Box>
+              </>
+            )
+            : null
+        }
       </Flex>
 
       <Box mt={4} mb={4} className={styles.graphContainer}>
@@ -53,7 +87,7 @@ export default function Dashboard() {
           <ChartTabs tabIndex={tabIndexLine} setTabIndex={setTabIndexLine} />
         </Flex>
         <Flex p={2} width="80%" marginInline="auto">
-          <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine} />
+          <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine} fromDate={fromDate} toDate={toDate} />
         </Flex>
       </Box>
 
@@ -70,7 +104,7 @@ export default function Dashboard() {
           <ChartTabs tabIndex={tabIndexPie} setTabIndex={setTabIndexPie} />
         </Flex>
         <Flex>
-          <PieSuccessfulAndUnsuccessfulHits duration={duration} tabIndex={tabIndexPie} />
+          <PieSuccessfulAndUnsuccessfulHits duration={duration} tabIndex={tabIndexPie} fromDate={fromDate} toDate={toDate} />
         </Flex>
       </Box>
     </Box>

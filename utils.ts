@@ -9,12 +9,16 @@ export function resolveWorkflow(tabIndex: number): ChartWorkflow | null {
   else return ChartWorkflow.WITHOUT_OTP;
 }
 
-export function resolveDuration(duration: Duration): {
+export function resolveDuration(
+  duration: Duration,
+  from: string,
+  to: string
+): {
   from: string;
   to: string;
 } {
-  const toDate = new Date();
-  const fromDate = new Date();
+  const toDate = Duration.CUSTOM ? new Date(to) : new Date();
+  const fromDate = Duration.CUSTOM ? new Date(from) : new Date();
 
   switch (duration) {
     case Duration.LAST_WEEK:

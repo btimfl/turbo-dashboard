@@ -17,16 +17,19 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 interface Props {
   tabIndex: number;
   duration: Duration;
+  fromDate: string;
+  toDate: string;
 }
 
-export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration }: Props) {
+export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, fromDate, toDate }: Props) {
   const auth = useContext(AuthContext);
-  const { from, to } = resolveDuration(duration);
+  const { from, to } = resolveDuration(duration, fromDate, toDate);
 
-  const { isLoading, isError, data: rawData } = useQuery(['graphData', tabIndex, duration], () => fetchGraphData(auth.merchant!, Chart.PIE, resolveWorkflow(tabIndex), from, to), {
+  const { isLoading, isError, data: rawData } = useQuery(['graphData', tabIndex, duration, fromDate, toDate], () => fetchGraphData(auth.merchant!, Chart.PIE, resolveWorkflow(tabIndex), from, to), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+    enabled: duration !== Duration.CUSTOM || (new Date(from).getTime() <= new Date(to).getTime())
   })
 
   if (isLoading) return (

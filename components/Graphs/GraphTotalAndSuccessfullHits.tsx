@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -19,6 +19,8 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 interface Props {
   tabIndex: number;
   duration: Duration;
+  fromDate: string;
+  toDate: string;
 }
 
 interface CartesianPoint {
@@ -27,14 +29,15 @@ interface CartesianPoint {
   successful: number;
 }
 
-export default function GraphTotalAndSuccessfullHits({ tabIndex, duration }: Props) {
+export default function GraphTotalAndSuccessfullHits({ tabIndex, duration, fromDate, toDate }: Props) {
   const auth = useContext(AuthContext);
-  const { from, to } = resolveDuration(duration);
+  const { from, to } = resolveDuration(duration, fromDate, toDate);
 
-  const { isLoading, isError, data: rawData } = useQuery(['graphData', tabIndex, duration], () => fetchGraphData(auth.merchant!, Chart.PIE, resolveWorkflow(tabIndex), from, to), {
+  const { isLoading, isError, data: rawData } = useQuery(['graphData', tabIndex, duration, fromDate, toDate], () => fetchGraphData(auth.merchant!, Chart.PIE, resolveWorkflow(tabIndex), from, to), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+    enabled: duration !== Duration.CUSTOM || (new Date(from).getTime() <= new Date(to).getTime())
   })
 
   if (isLoading) return (
