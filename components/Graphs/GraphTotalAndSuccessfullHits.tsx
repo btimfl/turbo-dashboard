@@ -10,15 +10,15 @@ import {
   Legend,
   Line,
 } from "recharts";
-import ChartTabs from "../ChartTabs/ChartTabs";
 
 interface Props {
+  tabIndex: number;
   duration: string;
 }
 
 export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
   const [tabIndex, setTabIndex] = useState<number>(0);
-  const tabs = ["With OTP", "Consolidated", "WithoutOTP"];
+  const tabs = ["Consolidated", "With OTP", "WithoutOTP"];
   const data = [
     {
       date: "1/1/23",
@@ -53,43 +53,31 @@ export default function GraphTotalAndSuccessfullHits({ duration }: Props) {
   }, [tabIndex, duration]);
 
   return (
-    <Box marginTop="2rem">
-      <Flex
-        justifyContent="space-between"
-        alignItems="center"
-        marginBottom="1rem"
-        paddingStart="1rem"
-      >
-        <Text textDecor="underline" fontSize="lg">
-          Total API Hits({tabs[tabIndex]}) and Successful API Hits
-        </Text>
-        <ChartTabs setTabIndex={setTabIndex} />
-      </Flex>
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="date"
-            label={{ value: "Date", position: "insideBottom", offset: "-5" }}
-          />
-          {/* label={{ value: 'Hits', angle: -90, position: 'left', offset: '-20' }} */}
-          <YAxis />
-          <Tooltip />
-          <Legend verticalAlign="top" align="center" />
-          <Line
-            type="monotone"
-            name="Total API Hits"
-            dataKey="total"
-            stroke="#4185F4"
-          />
-          <Line
-            type="monotone"
-            name="Successful API Hits"
-            dataKey="successful"
-            stroke="red"
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </Box>
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="date"
+          label={{ value: "Date", position: "insideBottom", offset: "-5" }}
+        />
+        {/* label={{ value: 'Hits', angle: -90, position: 'left', offset: '-20' }} */}
+        <YAxis />
+        <Tooltip />
+        <Legend verticalAlign="top" align="center" />
+        <Line
+          type="monotone"
+          name="Total API Hits"
+          dataKey="total"
+          stroke="#4185F4"
+        />
+        <Line
+          type="monotone"
+          name="Successful API Hits"
+          dataKey="successful"
+          stroke="red"
+        />
+      </LineChart>
+    </ResponsiveContainer>
+
   );
 }
