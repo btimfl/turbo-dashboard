@@ -58,7 +58,7 @@ export default function Reports() {
                             </Flex>
                             <FormErrorMessage>{formik.errors.toDate}</FormErrorMessage>
                         </FormControl>
-                        <Button type="submit" colorScheme="gray" color="var(--chakra-colors-teal-500)" w="19rem">Download Report</Button>
+                        <Button isLoading={formik.isSubmitting} type="submit" colorScheme="gray" color="var(--chakra-colors-teal-500)" w="19rem">Download Report</Button>
                     </Stack>
                 </form>
             </CardBody>
