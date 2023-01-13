@@ -38,13 +38,13 @@ export default function GraphTotalAndSuccessfullHits({ tabIndex, duration }: Pro
   })
 
   if (isLoading) return (
-    <Center justifyContent={`center`} h={`100%`} minH={`400px`}>
-      <Spinner/>
+    <Center justifyContent={`center`} h={`100%`} minH={`400px`} w="100%">
+      <Spinner />
     </Center>
   )
 
   if (isError) return (
-    <Center>
+    <Center justifyContent={`center`} h={`100%`} minH={`400px`} w="100%">
       An error occurred, please reload or try again later!
     </Center>
   )

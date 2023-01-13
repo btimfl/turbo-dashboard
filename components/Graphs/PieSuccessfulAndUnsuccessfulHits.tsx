@@ -30,13 +30,13 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration }:
   })
 
   if (isLoading) return (
-    <Center h="calc(100vh - 40px)">
+    <Center justifyContent={`center`} h={`100%`} minH={`400px`} w="100%">
       <Spinner />
     </Center>
   )
 
   if (isError) return (
-    <Center h="calc(100vh - 40px)">
+    <Center justifyContent={`center`} h={`100%`} minH={`400px`} w="100%">
       An error occurred, please reload or try again later!
     </Center>
   )
