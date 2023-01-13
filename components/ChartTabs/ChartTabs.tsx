@@ -10,13 +10,13 @@ export default function ChartTabs({ tabIndex, setTabIndex }: Props) {
   return (
     <Tabs variant="unstyled" onChange={(index) => setTabIndex(index)} index={tabIndex}>
       <TabList className={styles.tabs}>
-        <Tab className={styles.tab} _selected={{ color: "white", bg: "black" }} fontSize="sm">
+        <Tab className={styles.tab} _selected={{ color: "white", bg: "teal.500" }} fontSize="sm">
           With OTP
         </Tab>
-        <Tab className={styles.tab} _selected={{ color: "white", bg: "black" }} fontSize="sm">
+        <Tab className={styles.tab} _selected={{ color: "white", bg: "teal.500" }} fontSize="sm">
           Consolidated
         </Tab>
-        <Tab className={styles.tab} _selected={{ color: "white", bg: "black" }} fontSize="sm">
+        <Tab className={styles.tab} _selected={{ color: "white", bg: "teal.500" }} fontSize="sm">
           Without OTP
         </Tab>
       </TabList>

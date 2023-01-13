@@ -4,6 +4,7 @@ import HeaderBar from "../components/HeaderBar/HeaderBar";
 import Navigation from "../components/Navigation/Navigation";
 import styles from "./TurboLayout.module.scss";
 import NProgress from "nprogress";
+import { Box } from "@chakra-ui/react";
 
 export default function TurboLayout({
   children,
@@ -42,7 +43,9 @@ export default function TurboLayout({
           isNavOpen ? styles.expandedMenu : styles.collapsedMenu
         }`}
       >
-        {children}
+        <Box className={styles.pageContainer}>
+          {children}
+        </Box>
       </div>
     </>
   );

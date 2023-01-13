@@ -1,5 +1,5 @@
 .tabs {
-  border: 1px solid black;
+  border: 1px solid var(--chakra-colors-teal-500);
   border-radius: 0.6rem;
   width: max-content;
 
@@ -12,8 +12,8 @@
     }
 
     &:nth-child(2) {
-      border-left: 1px solid black;
-      border-right: 1px solid black;
+      border-left: 1px solid var(--chakra-colors-teal-500);
+      border-right: 1px solid var(--chakra-colors-teal-500);
     }
 
     &:nth-child(3) {

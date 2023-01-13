@@ -24,9 +24,10 @@ export default function Dashboard() {
 
   return (
     <Box className={styles.container}>
-      <Flex justifyContent="flex-end">
+      <Flex justifyContent="flex-end" align={`center`}>
+        <Text as="span" mr={2}>Timeline: </Text>
         <Menu>
-          <MenuButton as={Button} rightIcon={<AiFillCaretDown />} w="8.5rem" fontSize="sm">
+          <MenuButton as={Button} rightIcon={<AiFillCaretDown />} w="8.5rem" h={`2rem`} p={2} fontSize="sm">
             {duration}
           </MenuButton>
           <MenuList>
@@ -39,37 +40,38 @@ export default function Dashboard() {
         </Menu>
       </Flex>
 
-      <Box mt="2rem">
+      <Box mt={4} mb={4} className={styles.graphContainer}>
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          marginBottom="1rem"
-          paddingStart="1rem"
+          className={styles.graphHeader}
+          p={2}
         >
-          <Text textDecor="underline" fontSize="lg">
+          <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Successful and Unsuccessful API hits
           </Text>
           <ChartTabs tabIndex={tabIndexLine} setTabIndex={setTabIndexLine} />
         </Flex>
-        <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine} />
+        <Flex p={2}>
+          <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine}/>
+        </Flex>
       </Box>
 
-
-      <Divider marginBlock="2rem" variant="thick" />
-
-      <Box>
+      <Box className={styles.graphContainer}>
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          marginBottom="1rem"
-          paddingStart="1rem"
+          className={styles.graphHeader}
+          p={2}
         >
-          <Text textDecor="underline" fontSize="lg">
+          <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Successful and Unsuccessful API hits
           </Text>
           <ChartTabs tabIndex={tabIndexPie} setTabIndex={setTabIndexPie} />
         </Flex>
-        <PieSuccessfulAndUnsuccessfulHits duration={duration} tabIndex={tabIndexPie} />
+        <Flex>
+          <PieSuccessfulAndUnsuccessfulHits duration={duration} tabIndex={tabIndexPie} />
+        </Flex>
       </Box>
     </Box>
   );
