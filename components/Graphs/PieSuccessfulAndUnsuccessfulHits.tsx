@@ -81,13 +81,13 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, f
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart height={400}>
-        <Legend verticalAlign="top" align="center" />
+        <Legend verticalAlign="top" align="center" fontSize="0.75rem" />
         <Pie
           data={data}
           cx="50%"
           cy="50%"
           labelLine={false}
-          outerRadius={80}
+          outerRadius={100}
           fill="#8884d8"
           dataKey="value"
           label={renderCustomizedLabel}
@@ -99,7 +99,7 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, f
             />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip labelStyle={{ fontSize: "0.75rem", paddingBottom: '0.25rem' }} itemStyle={{ fontSize: "0.75rem", padding: '0' }}/>
       </PieChart>
     </ResponsiveContainer>
   );
