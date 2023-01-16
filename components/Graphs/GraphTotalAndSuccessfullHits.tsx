@@ -37,6 +37,7 @@ export default function GraphTotalAndSuccessfullHits({ tabIndex, duration, fromD
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+    staleTime: Infinity,
     enabled: duration !== Duration.CUSTOM || (new Date(from).getTime() <= new Date(to).getTime())
   })
 
@@ -112,7 +113,7 @@ export default function GraphTotalAndSuccessfullHits({ tabIndex, duration, fromD
           fontSize="0.75rem"
         />
         {/* label={{ value: 'Hits', angle: -90, position: 'left', offset: '-20' }} */}
-        <YAxis fontSize="0.75rem"  label={{ value: "API Count", angle: -90, position: "insideBottom", offset: "150", fontSize: "0.75rem"}}/>
+        <YAxis fontSize="0.75rem" label={{ value: "API Count", angle: -90, position: "insideBottom", offset: "150", fontSize: "0.75rem" }} />
         <Tooltip labelStyle={{ fontSize: "0.75rem", paddingBottom: '0.25rem' }} itemStyle={{ fontSize: "0.75rem", padding: '0' }} />
         <Legend verticalAlign="top" align="center" />
         <Line

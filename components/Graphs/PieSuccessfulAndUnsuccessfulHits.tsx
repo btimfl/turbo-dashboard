@@ -29,6 +29,7 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, f
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+    staleTime: Infinity,
     enabled: duration !== Duration.CUSTOM || (new Date(from).getTime() <= new Date(to).getTime())
   })
 
@@ -45,8 +46,8 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, f
   )
 
   const data = [
-    { name: "Hits with address match", value: rawData[UnifillAPI.SUCCESSFUL].length || 0 },
-    { name: "Hits with no address match", value: rawData[UnifillAPI.UNSUCCESSFUL].length || 0 },
+    { name: "Hits with address match", value: rawData[UnifillAPI.SUCCESSFUL]?.length || 0 },
+    { name: "Hits with no address match", value: rawData[UnifillAPI.UNSUCCESSFUL]?.length || 0 },
   ];
 
   const COLORS = ["red", "#4185F4"];
@@ -99,7 +100,7 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, f
             />
           ))}
         </Pie>
-        <Tooltip labelStyle={{ fontSize: "0.75rem", paddingBottom: '0.25rem' }} itemStyle={{ fontSize: "0.75rem", padding: '0' }}/>
+        <Tooltip labelStyle={{ fontSize: "0.75rem", paddingBottom: '0.25rem' }} itemStyle={{ fontSize: "0.75rem", padding: '0' }} />
       </PieChart>
     </ResponsiveContainer>
   );
