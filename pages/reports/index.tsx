@@ -89,7 +89,7 @@ export default function Reports() {
                     </Stack>
                 </form>
             </CardBody>
-            <a className={styles.hide} href={downloadCsvUrl} ref={downloadRef} download='data.csv'></a>
+            <a className={styles.hide} href={downloadCsvUrl} ref={downloadRef} download='apihits.csv'></a>
         </Card>
     )
 }
