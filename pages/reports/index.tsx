@@ -1,11 +1,18 @@
-import { Card, CardHeader, Heading, CardBody, Stack, StackDivider, Box, Text, Input, Select, Flex, FormControl, FormErrorMessage, Button } from "@chakra-ui/react";
+import { Card, CardHeader, Heading, CardBody, Stack, StackDivider, Box, Text, Input, Select, Flex, FormControl, FormErrorMessage, Button, useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useState } from "react";
-import { ReportType } from "../../enums";
+import { useContext, useRef, useState } from "react";
+import { ChartWorkflow, ReportType } from "../../enums";
 import styles from "./reports.module.scss";
 import * as Yup from "yup";
+import { exportCsv } from "../../apis/post";
+import { AuthContext } from "../../components/AuthProvider/AuthProvider";
 
 export default function Reports() {
+    const toast = useToast();
+    const auth = useContext(AuthContext);
+    const downloadRef = useRef<HTMLAnchorElement>(null);
+    const [downloadCsvUrl, setDownloadCsvUrl] = useState<string>('');
+
     const formik = useFormik({
         initialValues: {
             reportType: "",
@@ -23,7 +30,27 @@ export default function Reports() {
                 return Yup.string();
             }),
         }),
-        onSubmit: (values) => console.log(values)
+        onSubmit: async (values) => {
+            try {
+                const data = await exportCsv(auth.merchant!, null, values.fromDate, values.toDate);
+
+                if (!data.entity) throw new Error('No data found!');
+
+                const blob = new Blob([data.entity], { type: 'text/csv' });
+                setDownloadCsvUrl(window.URL.createObjectURL(blob));
+                downloadRef.current?.click();
+            } catch (err) {
+                toast({
+                    title: 'A problem occurred!',
+                    description: `${err}`,
+                    status: 'error',
+                    variant: 'left-accent',
+                    position: 'top-right',
+                    duration: 4000,
+                    isClosable: true,
+                });
+            }
+        }
     })
 
     return (
@@ -62,6 +89,7 @@ export default function Reports() {
                     </Stack>
                 </form>
             </CardBody>
+            <a className={styles.hide} href={downloadCsvUrl} ref={downloadRef} download='data.csv'></a>
         </Card>
     )
 }
