@@ -1,7 +1,7 @@
 import { Card, CardHeader, Heading, CardBody, Stack, StackDivider, Box, Text, Input, Select, Flex, FormControl, FormErrorMessage, Button, useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useContext, useRef, useState } from "react";
-import { ChartWorkflow, ReportType } from "../../enums";
+import { useContext, useEffect, useRef, useState } from "react";
+import { ReportType } from "../../enums";
 import styles from "./reports.module.scss";
 import * as Yup from "yup";
 import { exportCsv } from "../../apis/post";
@@ -12,6 +12,10 @@ export default function Reports() {
     const auth = useContext(AuthContext);
     const downloadRef = useRef<HTMLAnchorElement>(null);
     const [downloadCsvUrl, setDownloadCsvUrl] = useState<string>('');
+
+    useEffect(() => {
+        if (downloadCsvUrl) downloadRef.current?.click();
+    }, [downloadCsvUrl])
 
     const formik = useFormik({
         initialValues: {
@@ -38,7 +42,6 @@ export default function Reports() {
 
                 const blob = new Blob([data.entity], { type: 'text/csv' });
                 setDownloadCsvUrl(window.URL.createObjectURL(blob));
-                downloadRef.current?.click();
             } catch (err) {
                 toast({
                     title: 'A problem occurred!',
