@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   useToast,
+  Text
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useContext, useState } from "react";
@@ -18,6 +19,8 @@ import * as Yup from "yup";
 import { login } from "../../apis/post";
 import { useRouter } from "next/router";
 import { AuthContext } from "../../components/AuthProvider/AuthProvider";
+import Aside from "../../components/Aside/Aside";
+import SocialHeader from "../../components/SocialHeader/SocialHeader";
 
 export default function Login() {
   const toast = useToast();
@@ -63,15 +66,18 @@ export default function Login() {
 
   return (
     <Box className={styles.container}>
+      <Aside />
       <form onSubmit={formik.handleSubmit} className={styles.form}>
+        <SocialHeader />
         <Box>
-          <Heading mb="2rem">Welcome To Turbo</Heading>
+          <Text mb="0.25rem" fontWeight="500" fontSize="1.5rem">Login to Unicommerce-Turbo</Text>
+          <Text mb="2rem" fontWeight="light" fontSize="1.2rem">Enter your details below.</Text>
           <FormControl
-            mb={4}
+            mb={6}
             isInvalid={formik.touched.email && !!formik.errors.email}
           >
-            <FormLabel ps={4} htmlFor="email">
-              Email Id
+            <FormLabel htmlFor="email" fontSize="0.7rem" fontWeight="bold" color="gray.600">
+              EMAIL
             </FormLabel>
             <Input
               type="text"
@@ -85,8 +91,8 @@ export default function Login() {
             mb={4}
             isInvalid={formik.touched.password && !!formik.errors.password}
           >
-            <FormLabel ps={4} htmlFor="name">
-              Password
+            <FormLabel htmlFor="name" fontSize="0.7rem" fontWeight="bold" color="gray.600">
+              PASSWORD
             </FormLabel>
             <InputGroup>
               <Input
@@ -110,13 +116,14 @@ export default function Login() {
           <Flex justifyContent="center">
             <Button
               isLoading={formik.isSubmitting}
-              w="10rem"
+              w="100%"
               type="submit"
+              marginTop="3rem"
               color="white"
               background="rgb(101,87,245)"
               marginInline="auto"
             >
-              Sign in
+              Login
             </Button>
           </Flex>
         </Box>

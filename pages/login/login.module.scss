@@ -1,29 +1,25 @@
 .container {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(206, 216, 224);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+
+  @media screen and (min-width: 1050px) {
+    flex-direction: row;
+  }
 }
 
 .form {
+  max-width: 540px;
   width: 100%;
   height: 100%;
-  margin-left: auto;
-  background-color: white;
   display: flex;
+  margin-inline: auto;
+  margin-top: 0;
   flex-direction: column;
-  justify-content: center;
   padding: 1rem;
 
-  @media screen and (min-width: 450px) {
-    width: 80vw;
-    border-left: 1px solid black;
-  }
-
-  @media screen and (min-width: 700px) {
-    width: 60vw;
-  }
-
-  @media screen and (min-width: 900px) {
-    width: 50vw;
+  @media screen and (min-width: 1200px) {
+    margin-left: 10%;
   }
 }
