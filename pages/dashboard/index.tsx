@@ -21,8 +21,7 @@ import ChartTabs from "../../components/ChartTabs/ChartTabs";
 
 export default function Dashboard() {
   const toast = useToast();
-  const [tabIndexPie, setTabIndexPie] = useState<number>(0);
-  const [tabIndexLine, setTabIndexLine] = useState<number>(0);
+  const [tabIndex, setTabIndex] = useState<number>(0);
   const [duration, setDuration] = useState<Duration>(Duration.LAST_WEEK);
   const [fromDate, setFromDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [toDate, setToDate] = useState<string>(new Date().toISOString().split('T')[0]);
@@ -84,10 +83,10 @@ export default function Dashboard() {
           <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Successful and Unsuccessful API hits
           </Text>
-          <ChartTabs tabIndex={tabIndexLine} setTabIndex={setTabIndexLine} />
+          <ChartTabs tabIndex={tabIndex} />
         </Flex>
         <Flex p={2} width="80%" marginInline="auto">
-          <GraphTotalAndSuccessfullHits duration={duration} tabIndex={tabIndexLine} fromDate={fromDate} toDate={toDate} />
+          <GraphTotalAndSuccessfullHits duration={duration} fromDate={fromDate} toDate={toDate} setTabIndex={setTabIndex} />
         </Flex>
       </Box>
 
@@ -101,10 +100,10 @@ export default function Dashboard() {
           <Text fontSize="sm" fontWeight="bold" color="gray.700">
             Successful and Unsuccessful API hits
           </Text>
-          <ChartTabs tabIndex={tabIndexPie} setTabIndex={setTabIndexPie} />
+          <ChartTabs tabIndex={tabIndex} />
         </Flex>
         <Flex>
-          <PieSuccessfulAndUnsuccessfulHits duration={duration} tabIndex={tabIndexPie} fromDate={fromDate} toDate={toDate} />
+          <PieSuccessfulAndUnsuccessfulHits duration={duration} fromDate={fromDate} toDate={toDate} />
         </Flex>
       </Box>
     </Box>

@@ -1,5 +1,5 @@
 import { Box, Center, Flex, Spinner, Text } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { useContext, useEffect, useState } from "react";
 import {
   Cell,
@@ -9,29 +9,61 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { fetchGraphData } from "../../apis/post";
-import { Chart, ChartWorkflow, Duration, UnifillAPI } from "../../enums";
-import { resolveDuration, resolveWorkflow } from "../../utils";
+import { fetchGraphData } from "../../apis/get";
+import { Chart, Duration, UnifillAPI } from "../../enums";
+import { resolveDuration } from "../../utils";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 interface Props {
-  tabIndex: number;
   duration: Duration;
   fromDate: string;
   toDate: string;
 }
 
-export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, fromDate, toDate }: Props) {
-  const auth = useContext(AuthContext);
-  const { from, to } = resolveDuration(duration, fromDate, toDate);
+interface PieField {
+  name: string;
+  value: number;
+}
 
-  const { isLoading, isError, data: rawData } = useQuery(['graphData', tabIndex, duration, fromDate, toDate], () => fetchGraphData(auth.merchant!, Chart.PIE, resolveWorkflow(tabIndex), from, to), {
+export default function PieSuccessfulAndUnsuccessfulHits({ duration, fromDate, toDate }: Props) {
+  const auth = useContext(AuthContext);
+  const [from, setFrom] = useState<string>(resolveDuration(duration, fromDate, toDate).from);
+  const [to, setTo] = useState<string>(resolveDuration(duration, fromDate, toDate).to);
+  const [data, setData] = useState<PieField[]>([]);
+
+  const { isLoading, isError, data: rawData } = useQuery(['graphData', duration, from, to], () => fetchGraphData(auth.merchant!, from, to), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     staleTime: Infinity,
     enabled: duration !== Duration.CUSTOM || (new Date(from).getTime() <= new Date(to).getTime())
   })
+
+  useEffect(() => {
+    if (!rawData || !rawData['map']) {
+      setData([]);
+      return;
+    }
+
+    const successful = Object.keys(rawData['map']).reduce((acc, curr) => {
+      return acc + +(rawData['map'][curr][UnifillAPI.SUCCESSFUL] ?? 0);
+    }, 0)
+
+    const unsuccessful = Object.keys(rawData['map']).reduce((acc, curr) => {
+      return acc + +(rawData['map'][curr][UnifillAPI.UNSUCCESSFUL] ?? 0);
+    }, 0)
+
+    setData([
+      { name: 'Hits with address match', value: successful },
+      { name: 'Hits with no address match', value: unsuccessful }
+    ])
+  }, [rawData])
+
+  useEffect(() => {
+    const { from: f, to: t } = resolveDuration(duration, fromDate, toDate);
+    setFrom(f);
+    setTo(t);
+  }, [fromDate, toDate, duration])
 
   if (isLoading) return (
     <Center justifyContent={`center`} h={`100%`} minH={`400px`} w="100%">
@@ -45,10 +77,11 @@ export default function PieSuccessfulAndUnsuccessfulHits({ tabIndex, duration, f
     </Center>
   )
 
-  const data = [
-    { name: "Hits with address match", value: rawData[UnifillAPI.SUCCESSFUL]?.length || 0 },
-    { name: "Hits with no address match", value: rawData[UnifillAPI.UNSUCCESSFUL]?.length || 0 },
-  ];
+  if (!data.length) return (
+    <Center justifyContent={`center`} h={`100%`} minH={`400px`} w="100%">
+      No data available for the selected duration!
+    </Center>
+  )
 
   const COLORS = ["red", "#4185F4"];
 

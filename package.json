@@ -12,7 +12,6 @@
     "@chakra-ui/react": "^2.3.7",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@tanstack/react-query": "^4.20.4",
     "@types/node": "18.11.9",
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
@@ -28,6 +27,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "react-query": "^3.39.2",
     "recharts": "^2.2.0",
     "typescript": "4.8.4",
     "yup": "^0.32.11"

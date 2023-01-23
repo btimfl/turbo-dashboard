@@ -10,10 +10,10 @@ export enum Chart {
   PIE = 'PIE_CHART',
 }
 
-export enum ChartWorkflow {
-  WITH_OTP = 'OTP',
-  WITHOUT_OTP = 'WITHOUT_OTP',
-}
+export const ChartWorkflow = {
+  OTP: 1,
+  WITHOUT_OTP: 2,
+};
 
 export enum UnifillAPI {
   SUCCESSFUL = 'LookupStatus.FOUND(value=1)',

@@ -1,13 +1,4 @@
-import { ChartWorkflow, Duration } from './enums';
-
-export function resolveWorkflow(tabIndex: number): ChartWorkflow | null {
-  // To make the API work for now
-  return null;
-
-  if (tabIndex === 0) return null;
-  else if (tabIndex === 1) return ChartWorkflow.WITH_OTP;
-  else return ChartWorkflow.WITHOUT_OTP;
-}
+import { Duration } from './enums';
 
 export function resolveDuration(
   duration: Duration,

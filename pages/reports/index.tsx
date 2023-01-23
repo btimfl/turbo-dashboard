@@ -20,12 +20,12 @@ export default function Reports() {
 
     const formik = useFormik({
         initialValues: {
-            reportType: "",
+            // reportType: "",
             fromDate: new Date().toISOString().split('T')[0],
             toDate: new Date().toISOString().split('T')[0],
         },
         validationSchema: Yup.object().shape({
-            reportType: Yup.string().required('Please select a report type'),
+            // reportType: Yup.string().required('Please select a report type'),
             fromDate: Yup.date().required('Required'),
             toDate: Yup.date().required('Required').when('fromDate', (fromDate) => {
                 if (fromDate) {
@@ -37,7 +37,7 @@ export default function Reports() {
         }),
         onSubmit: async (values) => {
             try {
-                const blob = await getCsv(auth.merchant!, null, values.fromDate, values.toDate);
+                const blob = await getCsv(auth.merchant!, values.fromDate, values.toDate);
                 setDownloadCsvUrl(window.URL.createObjectURL(blob));
             } catch (err) {
                 toast({
@@ -62,7 +62,7 @@ export default function Reports() {
             <CardBody className={styles.body}>
                 <form onSubmit={formik.handleSubmit}>
                     <Stack spacing='4' fontSize="sm">
-                        <FormControl isInvalid={formik.touched.reportType && !!formik.errors.reportType}>
+                        {/* <FormControl isInvalid={formik.touched.reportType && !!formik.errors.reportType}>
                             <Flex alignItems="center">
                                 <Text width="4rem">Type: </Text>
                                 <Select fontSize="sm" h={`2rem`} placeholder='Select Option' width="15rem" display="inline-block" {...formik.getFieldProps('reportType')}>
@@ -70,7 +70,7 @@ export default function Reports() {
                                 </Select>
                             </Flex>
                             <FormErrorMessage>{formik.errors.reportType}</FormErrorMessage>
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl isInvalid={formik.touched.fromDate && !!formik.errors.fromDate}>
                             <Flex alignItems="center">
                                 <Text width="4rem">From: </Text>

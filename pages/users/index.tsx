@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { User, UserFormFields } from "../../interfaces";
 import UsersTable from "../../components/UsersTable/UsersTable";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { getUserList } from "../../apis/get";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -104,26 +104,26 @@ export default function UsersPage() {
 
   return (
     <>
-    <Box className={styles.tableContainer}>
-      <Flex className={styles.tableHeader} p={2} mb={2}>
-        <Text fontSize="sm" fontWeight="bold" color="gray.700">
-          List of Users
-        </Text>
-      </Flex>
-      <UsersTable
-        data={data?.map(user => {
-          return {
-            email: user.email,
-            password: "",
-            fullName: user.fullName,
-            userStatus: user.userStatus ? true : false,
-            phoneNumber: user.phoneNumber ?? "",
-            userRole: user.userRole?.[0] || "",
-          }
-        })}
-        onEditClick={onEditClick}
-      />
-    </Box>
+      <Box className={styles.tableContainer}>
+        <Flex className={styles.tableHeader} p={2} mb={2}>
+          <Text fontSize="sm" fontWeight="bold" color="gray.700">
+            List of Users
+          </Text>
+        </Flex>
+        <UsersTable
+          data={data?.map(user => {
+            return {
+              email: user.email,
+              password: "",
+              fullName: user.fullName,
+              userStatus: user.userStatus ? true : false,
+              phoneNumber: user.phoneNumber ?? "",
+              userRole: user.userRole?.[0] || "",
+            }
+          })}
+          onEditClick={onEditClick}
+        />
+      </Box>
       <Drawer
         isOpen={isOpen}
         placement='right'
