@@ -4,14 +4,15 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { ReportType } from "../../enums";
 import styles from "./reports.module.scss";
 import * as Yup from "yup";
-import { exportCsv } from "../../apis/post";
 import { AuthContext } from "../../components/AuthProvider/AuthProvider";
+import { getCsv } from "../../apis/get";
 
 export default function Reports() {
     const toast = useToast();
     const auth = useContext(AuthContext);
     const downloadRef = useRef<HTMLAnchorElement>(null);
     const [downloadCsvUrl, setDownloadCsvUrl] = useState<string>('');
+    const [csvData, setCsvData] = useState<any>('');
 
     useEffect(() => {
         if (downloadCsvUrl) downloadRef.current?.click();
@@ -36,11 +37,7 @@ export default function Reports() {
         }),
         onSubmit: async (values) => {
             try {
-                const data = await exportCsv(auth.merchant!, null, values.fromDate, values.toDate);
-
-                if (!data.entity) throw new Error('No data found!');
-
-                const blob = new Blob([data.entity], { type: 'text/csv' });
+                const blob = await getCsv(auth.merchant!, null, values.fromDate, values.toDate);
                 setDownloadCsvUrl(window.URL.createObjectURL(blob));
             } catch (err) {
                 toast({

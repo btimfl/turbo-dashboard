@@ -54,28 +54,3 @@ export async function fetchGraphData(
   const text = await res.text();
   return text ? JSON.parse(text) : {};
 }
-
-export async function exportCsv(
-  tenant: string,
-  workflow: ChartWorkflow | null,
-  from: string,
-  to: string
-): Promise<any> {
-  const res = await fetch(`${baseUrl}/v1/download/csv`, {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('turbo-merchant')}`,
-    },
-    body: JSON.stringify({
-      tenant: 'test1',
-      workflow: workflow === null ? null : workflow,
-      from: '2018-01-05',
-      to: '2023-01-16',
-    }),
-  });
-
-  if (!res.ok) throw new Error(res.statusText);
-  const text = await res.text();
-  return text ? JSON.parse(text) : {};
-}
