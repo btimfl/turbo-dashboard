@@ -66,21 +66,48 @@
       line-height: 1.5em;
     }
     .companies {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-areas: 'a b c' 'd e f' 'g h auto';
+      row-gap: 12px;
+      align-items: center;
       margin-bottom: 15px;
       margin-top: 2rem;
       gap: 2rem;
 
-      .row1,
-      .row2 {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+      @media screen and (min-width: 500px) {
+        grid-template-areas: 'a b c d' 'e f g h';
+      }
 
-        * {
-          align-self: flex-end;
-        }
+      .a {
+        grid-area: a;
+      }
+
+      .b {
+        grid-area: b;
+      }
+
+      .c {
+        grid-area: c;
+      }
+
+      .d {
+        grid-area: d;
+      }
+
+      .e {
+        grid-area: e;
+      }
+
+      .f {
+        grid-area: f;
+      }
+
+      .g {
+        grid-area: g;
+      }
+
+      .h {
+        grid-area: h;
       }
     }
   }

@@ -45,18 +45,14 @@ export default function Aside() {
                 <div className={styles.trustedBy}>
                     <p>Trusted by leading brands & marketplaces</p>
                     <div className={styles.companies}>
-                        <div className={styles.row1}>
-                            <Image src="/icons/anita-dongre.png" width="115" height="35" alt="anita-dongre"></Image>
-                            <Image src="/icons/action-shoes.png" width="70" height="15" alt="action-shoes"></Image>
-                            <Image src="/icons/gnc.png" width="85" height="25" alt="gnc"></Image>
-                            <Image src="/icons/philips.png" width="85" height="30" alt="philips"></Image>
-                        </div>
-                        <div className={styles.row2}>
-                            <Image src="/icons/myntra.png" width="100" height="30" alt="myntra"></Image>
-                            <Image src="/icons/jabong.png" width="90" height="20" alt="jabong"></Image>
-                            <Image src="/icons/snapdeal.png" width="100" height="20" alt="snapdeal"></Image>
-                            <Image src="/icons/lenskart.png" width="50" height="35" alt="lenskart"></Image>
-                        </div>
+                        <Image className={styles.a} src="/icons/anita-dongre.png" width="115" height="35" alt="anita-dongre"></Image>
+                        <Image className={styles.b} src="/icons/action-shoes.png" width="70" height="15" alt="action-shoes"></Image>
+                        <Image className={styles.c} src="/icons/gnc.png" width="85" height="25" alt="gnc"></Image>
+                        <Image className={styles.d} src="/icons/philips.png" width="85" height="30" alt="philips"></Image>
+                        <Image className={styles.e} src="/icons/myntra.png" width="100" height="30" alt="myntra"></Image>
+                        <Image className={styles.f} src="/icons/jabong.png" width="90" height="20" alt="jabong"></Image>
+                        <Image className={styles.g} src="/icons/snapdeal.png" width="100" height="20" alt="snapdeal"></Image>
+                        <Image className={styles.h} src="/icons/lenskart.png" width="50" height="35" alt="lenskart"></Image>
                     </div>
                 </div>
             </div>
