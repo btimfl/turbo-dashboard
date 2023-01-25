@@ -131,7 +131,7 @@ export default function UserForm({ formik, isEdit }: Props) {
               </FormLabel>
               <Switch id='userStatus' isChecked={formik.values.userStatus} {...formik.getFieldProps('userStatus')} />
             </FormControl>
-            {!isEdit ? <Button type="submit">Submit</Button> : null}
+            {!isEdit ? <Button type="submit" isLoading={formik.isSubmitting}>Submit</Button> : null}
           </Box>
         </form>
       </Box>

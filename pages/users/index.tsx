@@ -60,6 +60,13 @@ export default function UsersPage() {
       })
       try {
         await updateUser(values.email, payload);
+        toast({
+          title: 'User updated!',
+          status: 'success',
+          variant: 'left-accent',
+          position: "top-right",
+          isClosable: true,
+        });
       } catch (err) {
         toast({
           title: 'A problem occurred!',
@@ -149,7 +156,7 @@ export default function UsersPage() {
             pl={4}
             borderTop={`1px solid var(--chakra-colors-gray-200)`}
             fontSize={`md`}>
-            <Button mr={3} onClick={formik.submitForm} size={`sm`} colorScheme="blue" marginLeft="auto">
+            <Button mr={3} onClick={formik.submitForm} size={`sm`} colorScheme="blue" marginLeft="auto" isLoading={formik.isSubmitting}>
               Save
             </Button>
             <Button mr={3} onClick={onClose} size={`sm`}>

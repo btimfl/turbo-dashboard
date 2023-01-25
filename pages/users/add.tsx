@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import * as Yup from "yup";
 import { createUser } from "../../apis/post";
@@ -9,6 +10,7 @@ import { User, UserFormFields } from "../../interfaces";
 
 export default function AddUser() {
   const toast = useToast();
+  const router = useRouter();
   const auth = useContext(AuthContext);
   const formik = useFormik<UserFormFields>({
     initialValues: {
@@ -31,6 +33,14 @@ export default function AddUser() {
     onSubmit: async (values) => {
       try {
         await createUser({ ...values, joinedGroupName: [auth.merchant!], userRole: [values.userRole] });
+        toast({
+          title: 'User created!',
+          status: 'success',
+          variant: 'left-accent',
+          position: "top-right",
+          isClosable: true,
+        });
+        router.push('/users');
       } catch (err) {
         toast({
           title: 'A problem occurred!',
