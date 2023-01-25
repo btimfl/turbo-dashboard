@@ -23,6 +23,7 @@ export async function createUser(user: User): Promise<any> {
     },
     body: JSON.stringify(user),
   });
+  if (res.status === 302) throw new Error('User already exists');
   if (!res.ok) throw new Error(res.statusText);
   return res.json();
 }

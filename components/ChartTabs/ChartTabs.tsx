@@ -7,7 +7,6 @@ interface Props {
 }
 
 function getTabTitle(tabIndex: number): string {
-  console.log(tabIndex);
   switch (tabIndex) {
     case -1: return ''; break;
     case 0: return 'Consolidated'; break;
