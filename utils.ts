@@ -8,8 +8,8 @@ export function resolveDuration(
   from: string;
   to: string;
 } {
-  const toDate = Duration.CUSTOM ? new Date(to) : new Date();
-  const fromDate = Duration.CUSTOM ? new Date(from) : new Date();
+  const toDate = duration === Duration.CUSTOM ? new Date(to) : new Date();
+  const fromDate = duration === Duration.CUSTOM ? new Date(from) : new Date();
 
   switch (duration) {
     case Duration.LAST_WEEK:
