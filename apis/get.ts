@@ -15,7 +15,6 @@ export async function fetchGraphData(
   from: string,
   to: string
 ): Promise<any> {
-  tenant = 'sugar';
   const res = await fetch(
     `${baseUrl}/v1/graph?tenant=${tenant}&from=${from}&to=${to}`,
     {
@@ -34,7 +33,6 @@ export async function getCsv(
   from: string,
   to: string
 ): Promise<any> {
-  tenant = 'sugar';
   const res = await fetch(
     `${baseUrl}/v1/download/csv?tenant=${tenant}&from=${from}&to=${to}`,
     {
