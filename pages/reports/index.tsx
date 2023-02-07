@@ -89,7 +89,7 @@ export default function Reports() {
                     </Stack>
                 </form>
             </CardBody>
-            <a className={styles.hide} href={downloadCsvUrl} ref={downloadRef} download={`${auth.merchant + '_' + new Date().toLocaleDateString('en-IN').split('/').join("") + '_' + new Date().toLocaleTimeString().split(':').join("")}`}></a>
+            <a className={styles.hide} href={downloadCsvUrl} ref={downloadRef} download={`${auth.merchant + '_' + new Date().toLocaleDateString('en-IN').split('/').join("") + '_' + new Date().toLocaleTimeString().split(':').join("")}.csv`}></a>
         </Card>
     )
 }

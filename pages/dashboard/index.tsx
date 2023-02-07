@@ -18,13 +18,16 @@ import GraphTotalAndSuccessfullHits from "../../components/Graphs/GraphTotalAndS
 import { Duration } from "../../enums";
 import PieSuccessfulAndUnsuccessfulHits from "../../components/Graphs/PieSuccessfulAndUnsuccessfulHits";
 import ChartTabs from "../../components/ChartTabs/ChartTabs";
+import { resolveDuration } from "../../utils";
 
 export default function Dashboard() {
   const toast = useToast();
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [duration, setDuration] = useState<Duration>(Duration.LAST_WEEK);
-  const [fromDate, setFromDate] = useState<string>(new Date().toISOString().split('T')[0]);
-  const [toDate, setToDate] = useState<string>(new Date().toISOString().split('T')[0]);
+
+  const { from, to } = resolveDuration(duration, '', '');
+  const [fromDate, setFromDate] = useState<string>(from);
+  const [toDate, setToDate] = useState<string>(to);
 
   useEffect(() => {
     if (new Date(fromDate).getTime() > new Date(toDate).getTime()) {
