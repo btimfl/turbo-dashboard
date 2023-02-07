@@ -1,6 +1,6 @@
 import { User } from '../interfaces';
 
-const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
+const baseUrl = 'https://turbo.unicommerce.com/merchant';
 
 export async function login(payload: any): Promise<any> {
   const res = await fetch(`${baseUrl}/v1/login`, {

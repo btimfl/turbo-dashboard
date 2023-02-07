@@ -1,4 +1,4 @@
-const baseUrl = 'http://turbo-dev.unicommerce.co.in/merchant';
+const baseUrl = 'https://turbo.unicommerce.com/merchant';
 
 export async function getUserList(merchant: string): Promise<any> {
   const res = await fetch(`${baseUrl}/v1/users/${merchant}`, {
