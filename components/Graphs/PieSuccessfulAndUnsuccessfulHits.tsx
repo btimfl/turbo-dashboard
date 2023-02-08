@@ -83,7 +83,7 @@ export default function PieSuccessfulAndUnsuccessfulHits({ duration, fromDate, t
     </Center>
   )
 
-  const COLORS = ["red", "#4185F4"];
+  const COLORS = ["#4185F4", "red"];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({

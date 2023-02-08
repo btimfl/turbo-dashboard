@@ -114,13 +114,13 @@ export default function GraphTotalAndSuccessfullHits({ duration, fromDate, toDat
           type="monotone"
           name="Total API Hits"
           dataKey="total"
-          stroke="#4185F4"
+          stroke="red"
         />
         <Line
           type="monotone"
           name="Successful API Hits"
           dataKey="successful"
-          stroke="red"
+          stroke="#4185F4"
         />
       </LineChart>
     </ResponsiveContainer>
