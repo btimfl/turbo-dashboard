@@ -24,7 +24,16 @@ export function resolveDuration(
   }
 
   return {
-    from: fromDate.toLocaleDateString('en-CA'),
-    to: toDate.toLocaleDateString('en-CA'),
+    from: getFormattedDate(fromDate),
+    to: getFormattedDate(toDate),
   };
+}
+
+// returns in YYYY-MM-DD format
+function getFormattedDate(date: Date): string {
+  return date.getFullYear() + '-' + formatToTwoDigits(date.getMonth() + 1) + '-' + formatToTwoDigits(date.getDate());
+}
+
+function formatToTwoDigits(arg: number): string {
+  return arg < 10 ? `0${arg}` : `${arg}`;
 }

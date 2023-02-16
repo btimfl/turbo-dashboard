@@ -25,7 +25,7 @@ export default function Dashboard() {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [duration, setDuration] = useState<Duration>(Duration.LAST_WEEK);
 
-  const { from, to } = resolveDuration(duration, '', '');
+  const { from, to } = resolveDuration(Duration.LAST_WEEK, '', '');
   const [fromDate, setFromDate] = useState<string>(from);
   const [toDate, setToDate] = useState<string>(to);
 
