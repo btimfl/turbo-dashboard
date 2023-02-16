@@ -31,9 +31,5 @@ export function resolveDuration(
 
 // returns in YYYY-MM-DD format
 function getFormattedDate(date: Date): string {
-  return date.getFullYear() + '-' + formatToTwoDigits(date.getMonth() + 1) + '-' + formatToTwoDigits(date.getDate());
-}
-
-function formatToTwoDigits(arg: number): string {
-  return arg < 10 ? `0${arg}` : `${arg}`;
+  return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
 }
